@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useGetAuthorQuery } from '../graphql/operations/get_author.generated';
 
 const Author: FC = () => {
@@ -7,7 +7,6 @@ const Author: FC = () => {
       number: 234,
     },
   });
-  console.log(data);
-  return <div>AAA</div>;
+  return <div>{data?.getAuthor}</div>;
 };
 export default Author;
