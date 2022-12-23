@@ -5,6 +5,6 @@ import { Author } from './author.model';
 export class GetAuthor {
   @Query(() => Number)
   async getAuthor(@Args('id', { type: () => Int }) id: number) {
-    return 23;
+    return id;
   }
 }

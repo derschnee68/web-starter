@@ -11,7 +11,9 @@ import BaseError from '../../errors/BaseError';
 const SentryApolloPlugin: PluginDefinition = {
   async requestDidStart() {
     return Promise.resolve({
-      didEncounterErrors(ctx: GraphQLRequestContextDidEncounterErrors<Context>) {
+      didEncounterErrors(
+        ctx: GraphQLRequestContextDidEncounterErrors<Context>,
+      ) {
         // If we couldn't parse the operation, don't do anything here
         if (!ctx.operation) {
           return Promise.resolve();
@@ -19,7 +21,10 @@ const SentryApolloPlugin: PluginDefinition = {
 
         for (const err of ctx.errors) {
           // Only report internal server errors, all errors extending BaseError should be user-facing
-          if (err.originalError instanceof BaseError && !err.originalError.shouldReport) {
+          if (
+            err.originalError instanceof BaseError &&
+            !err.originalError.shouldReport
+          ) {
             continue;
           }
 
@@ -41,7 +46,8 @@ const SentryApolloPlugin: PluginDefinition = {
               });
             }
 
-            const transactionId = ctx.request.http?.headers.get('x-transaction-id');
+            const transactionId =
+              ctx.request.http?.headers.get('x-transaction-id');
 
             if (transactionId) {
               scope.setTransactionName(transactionId);
