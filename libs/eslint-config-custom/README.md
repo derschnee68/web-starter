@@ -1,6 +1,6 @@
-# eslint-config-isquare
+# eslint-config-custom
 
-Internal ESLint config for the isquare monorepo.
+Internal ESLint config for the monorepo.
 
 ## Usage
 
@@ -9,7 +9,7 @@ Simply add the package to the app/library dependencies:
 ```json
 {
   "devDependencies": {
-    "@squarefactory/eslint-config-isquare": "workspace:*"
+    "eslint-config-custom": "workspace:*"
   }
 }
 ```

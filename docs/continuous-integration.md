@@ -5,7 +5,7 @@
 We use [ESLint](https://eslint.org/) for our JavaScript/TypeScript project and [Prettier](https://prettier.io/) as
 default formatter.
 
-- The shared ESLint configuration can be found in [`libs/eslint-config-isquare`](../libs/eslint-config-isquare).
+- The shared ESLint configuration can be found in [`libs/eslint-config-custom`](../libs/eslint-config-custom).
 - The shared Prettier configuration is located at the root [`.prettierrc.js](../.prettierrc.js) file.
 
 ## Testing
