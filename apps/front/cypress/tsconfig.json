@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2021",
+    "sourceMap": true,
+    "types": [
+      "cypress",
+      "node"
+    ],
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

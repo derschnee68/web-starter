@@ -1,5 +1,5 @@
 {
-  "name": "front",
+  "name": "web-starter-front",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,12 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:graphql": "graphql-codegen"
+    "generate:graphql": "graphql-codegen",
+    "test:open": "cypress open --browser=chrome",
+    "test": "cypress run"
   },
   "dependencies": {
     "@apollo/client": "^3.6.5",
     "@rehooks/local-storage": "^2.4.4",
+    "dotenv": "^16.0.1",
     "graphql": "^16.6.0",
+    "lodash": "^4.17.21",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -21,6 +25,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
+    "@cypress/code-coverage": "^3.10.0",
+    "@faker-js/faker": "^7.2.0",
     "@graphql-codegen/cli": "^2.16.1",
     "@graphql-codegen/near-operation-file-preset": "^2.4.4",
     "@graphql-codegen/typescript": "2.4.11",
@@ -31,9 +37,12 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "cypress": "^12.2.0",
+    "cypress-esbuild-preprocessor": "^1.0.2",
+    "esbuild": "^0.14.43",
     "eslint": "8.30.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-cypress": "^2.12.1",
+    "graphql-request": "^4.3.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   },
