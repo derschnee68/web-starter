@@ -1,0 +1,43 @@
+<mj-attributes>
+  <mj-all padding="0px" />
+  <mj-column padding="16px 48px" />
+  <mj-text color="#000000" font-size="14px" />
+  <mj-button
+    padding="7px 14px"
+    color="#ffffff"
+    font-size="14px"
+    font-weight="500"
+    background-color="#6753ff"
+    border-radius="0px"
+  />
+</mj-attributes>
+
+<!-- prettier-ignore -->
+<mj-style>
+  body {
+    font-family: Roboto, Helvetica, sans-serif;
+  }
+</mj-style>
+
+<!-- prettier-ignore -->
+<mj-style inline="inline">
+  p {
+    line-height: 2;
+  }
+
+  a {
+    color: #6753ff;
+    text-decoration: none !important;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+</mj-style>
+
+<!-- prettier-ignore -->
+<mj-style inline="inline">
+  .box-shadow {
+    box-shadow: rgb(0 0 0 / 20%) 0 3px 3px -2px, rgb(0 0 0 / 14%) 0 3px 4px 0, rgb(0 0 0 / 12%) 0 1px 8px 0;
+  }
+</mj-style>

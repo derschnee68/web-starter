@@ -1,0 +1,29 @@
+<mjml>
+  <mj-head>
+    <mj-include path="../partials/head.mjml" />
+  </mj-head>
+
+  <mj-body>
+    <mj-include path="../partials/header.mjml" />
+
+    <mj-section css-class="box-shadow">
+      <mj-column>
+        <mj-text align="center">
+          <h1>Activate your account</h1>
+        </mj-text>
+
+        <mj-text>
+          <p>Welcome to the iSquare platform!</p>
+
+          <p>In order to be able login please click the link below to activate your account:</p>
+        </mj-text>
+
+        <mj-button href="<%= _app.url %>/auth/activate?token=<%= token %>" target="_blank">
+          Activate your account
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="../partials/footer.mjml" />
+  </mj-body>
+</mjml>
