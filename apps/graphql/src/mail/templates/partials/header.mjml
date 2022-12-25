@@ -1,0 +1,13 @@
+<!--suppress InvalidColorAttribute -->
+<mj-section padding-top="64px" background-color="transparent">
+  <mj-column>
+    <!--suppress InvalidUrlAttribute -->
+    <mj-image
+      width="192px"
+      src="../../assets/isquare.png"
+      title="Navigate to the iSquare website"
+      href="<%= _app.url %>"
+      alt="iSquare logo"
+    />
+  </mj-column>
+</mj-section>
