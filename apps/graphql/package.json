@@ -18,7 +18,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "mikro": "NODE_ENV=dev mikro-orm",
+    "gen:migration": "rimraf src/database/migrations/.snapshot-isquare.json src/database/migrations/* && pnpm mikro schema:drop -r && pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:fresh --seed",
+    "migration:create": "pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:up",
+    "fresh": "pnpm mikro migration:fresh --seed"
   },
   "dependencies": {
     "@mikro-orm/core": "^5.2.0",
@@ -44,6 +48,8 @@
     "zod": "^3.16.0"
   },
   "devDependencies": {
+    "@mikro-orm/cli": "^5.2.0",
+    "@mikro-orm/seeder": "^5.2.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
@@ -69,6 +75,13 @@
     "tsconfig-paths": "4.1.0",
     "typescript": "^4.7.4",
     "webpack": "^5.75.0"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/database/mikro-orm.config.ts",
+      "./dist/database/mikro-orm.config.js"
+    ]
   },
   "jest": {
     "moduleFileExtensions": [

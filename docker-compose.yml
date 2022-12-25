@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:8-oracle
+    ports:
+      - '23306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
+      MYSQL_DATABASE: isquare
+      MYSQL_USER: isquare
+      MYSQL_PASSWORD: Z32!decJfnpnY@c5DL8L
+    volumes:
+      - mysql_data:/var/lib/mysql
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - '1080:1080' # HTTP web UI
+      - '1025:1025' # SMTP server
+volumes:
+  mysql_data:
