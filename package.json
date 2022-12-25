@@ -7,14 +7,17 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
+    "prepare": "simple-git-hooks",
+    "dev": "pnpm compose && pnpm run --parallel --recursive --filter=!./apps/csquare-docs dev",
+    "lint": "pnpm run -r lint",
+    "compose": "docker compose up -d --remove-orphans",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
+    "simple-git-hooks": "^2.8.0",
+    "standard-commit": "^4.2.5",
     "turbo": "latest"
   },
   "engines": {
