@@ -55,7 +55,6 @@ export default class Login {
     }
 
     const currentPassword = user.password;
-    console.log(password, currentPassword, compare(password, currentPassword));
 
     if (!currentPassword || !compare(password, currentPassword)) {
       throw new InvalidCredentials();

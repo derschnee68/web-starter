@@ -1,0 +1,14 @@
+ignores:
+  - ../../.prettierrc.js
+  - '@types/react-dom'
+  - esbuild # peer dependency of cypress-esbuild-preprocessor
+  - babel-loader
+  - '@babel/preset-env'
+
+  # GraphQL codegen
+  - '@graphql-codegen/introspection'
+  - '@graphql-codegen/near-operation-file-preset'
+  - '@graphql-codegen/typescript'
+  - '@graphql-codegen/typescript-generic-sdk'
+  - '@graphql-codegen/typescript-operations'
+  - '@graphql-codegen/typescript-react-apollo'

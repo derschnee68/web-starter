@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && depcheck && unimported",
     "generate:graphql": "graphql-codegen",
     "test:open": "cypress open --browser=chrome",
     "test": "cypress run"
@@ -18,7 +18,6 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
-    "@mui/icons-material": "^5.8.0",
     "@mui/lab": "5.0.0-alpha.83",
     "@mui/material": "^5.11.1",
     "@mui/x-date-pickers": "5.0.0-alpha.6",
@@ -50,13 +49,15 @@
     "@types/react-dom": "^18.0.7",
     "cypress": "^12.2.0",
     "cypress-esbuild-preprocessor": "^1.0.2",
+    "depcheck": "^1.4.3",
     "esbuild": "^0.14.43",
     "eslint": "8.30.0",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-cypress": "^2.12.1",
     "graphql-request": "^4.3.0",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.3"
+    "typescript": "^4.5.3",
+    "unimported": "^1.24.0"
   },
   "pnpm": {
     "overrides": {
