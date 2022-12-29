@@ -3,8 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import type { ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloDriver } from '@nestjs/apollo';
 import GraphQLConfig from './graphql/GraphQLConfig';
-import { AppController } from './controlers/app.controller';
-import { AppService } from './services/app.service';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import config from './database/mikro-orm.config';
 import ForgotPassword from './graphql/operations/ForgotPassword';
@@ -32,9 +30,8 @@ import ActivateAccount from './graphql/operations/ActivateAccount';
       useClass: MailConfig,
     }),
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     Me,
     Login,
     Register,
