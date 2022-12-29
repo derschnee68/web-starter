@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 177.7 200.68">
+  <defs>
+    <style>.e{fill:url(#c);}.f{fill:url(#b);}.g{fill:url(#d);}</style>
+    <linearGradient id="b" x1="16.18" y1="39.38" x2="39.6" y2="15.96" gradientTransform="matrix(1, 0, 0, 1, 0, 0)"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#826cd3"/>
+      <stop offset="1" stop-color="#10d9c9"/>
+    </linearGradient>
+    <linearGradient id="c" x1="32.48" y1="167.53" x2="99.88" y2="100.13" xlink:href="#b"/>
+    <linearGradient id="d" x1="101.38" y1="100.03" x2="151.28" y2="50.12" xlink:href="#b"/>
+  </defs>
+  <rect class="f" x="16.18" y="15.96" width="23.42" height="23.42"/>
+  <path class="e" d="M49.98,152.03V50.22H15.38v16.5h18.1v101.8h101.4v14.51h16.5v-31.01H49.98Z"/>
+  <polygon class="g"
+           points="151.38 133.13 134.88 133.13 134.88 66.72 68.08 66.72 68.08 50.22 151.38 50.22 151.38 133.13"/>
+</svg>

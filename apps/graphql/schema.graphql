@@ -1,0 +1,113 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""A user account"""
+type User {
+  """The user ID"""
+  id: ID!
+
+  """The user email"""
+  email: String!
+
+  """The user password"""
+  password: String!
+
+  """The date when the user has registered"""
+  createdAt: DateTime!
+
+  """The last date the user has been updated"""
+  updatedAt: DateTime!
+
+  """The date when the user has verified its email"""
+  verifiedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""
+JWT registered claims as described in the [RFC7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1)
+"""
+type JwtPayload {
+  """The JWT issuer"""
+  iss: String!
+
+  """The JWT subject"""
+  sub: String!
+
+  """The JWT audience"""
+  aud: String!
+
+  """When the JWT expires."""
+  exp: Int!
+
+  """When the JWT is considered as valid."""
+  nbf: Int
+
+  """When the JWT was issued."""
+  iat: Int!
+
+  """The JWT ID"""
+  jti: String!
+}
+
+type LoginResult {
+  """The generated login JWT"""
+  token: String!
+
+  """The JWT claims. They can also be obtained from the JWT payload."""
+  payload: JwtPayload!
+}
+
+type Query {
+  """Return user entity related to the logged in user"""
+  me: User!
+}
+
+type Mutation {
+  """Login in to the application with email/password credentials."""
+  login(
+    """The email to log in with"""
+    email: String!
+
+    """The password to log in with"""
+    password: String!
+  ): LoginResult!
+
+  """Create new user account by providing email/password credentials."""
+  register(
+    """The email to use for the account creation"""
+    email: String!
+
+    """The password to use for the account creation"""
+    password: String!
+  ): Boolean!
+
+  """
+  Request the application to send an email with link to reset the user password.
+  """
+  forgotPassword(email: String!): Boolean!
+
+  """Updates the password of a user"""
+  resetPassword(
+    """The JWT token associated to the reset password request"""
+    token: String!
+
+    """The new password to use"""
+    password: String!
+  ): Boolean!
+
+  """Create new user account by providing email/password credentials."""
+  sendActivationMail(
+    """The email address to send the activation mail to"""
+    email: String!
+  ): Boolean!
+
+  """
+  Activate new user account after clicking on the link in the activation email
+  """
+  activateAccount(token: String!): Boolean!
+}
