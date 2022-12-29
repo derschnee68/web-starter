@@ -1,0 +1,26 @@
+{
+  "entry": [
+    "./src/main.ts",
+    "./src/database/mikro-orm.config.ts",
+    "./src/database/migrations/*.ts",
+    "./src/database/seeders/*.ts"
+  ],
+  "extensions": [
+    ".ts",
+    ".js"
+  ],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "dist/**"
+  ],
+  "ignoreUnresolved": [
+    "@faker-js/faker",
+    "tslib"
+  ],
+  "ignoreUnused": [
+    "@nestjs/cli",
+    "rimraf",
+    "webpack"
+  ],
+  "ignoreUnimported": []
+}

@@ -18,7 +18,8 @@ export default class ActivateAccount {
 
   @Public()
   @Mutation(() => Boolean, {
-    description: 'Activate new user account after clicking on the link in the activation email',
+    description:
+      'Activate new user account after clicking on the link in the activation email',
   })
   async activateAccount(@Args('token') token: string): Promise<boolean> {
     let email: string;

@@ -9,7 +9,6 @@ import { isEnvironment } from '../../utils/environment';
 import Req from '../decorators/Req';
 import { Request } from 'express';
 import { ApolloError } from 'apollo-server-core';
-import { createHash } from 'crypto';
 import { hash } from '../../crypto/utils/ssha';
 
 @ArgsType()

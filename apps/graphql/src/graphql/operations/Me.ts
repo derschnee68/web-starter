@@ -9,7 +9,9 @@ import UserId from '../decorators/UserId';
 export default class Me {
   constructor(private readonly em: EntityManager) {}
 
-  @Query(() => User, { description: 'Return user entity related to the logged in user' })
+  @Query(() => User, {
+    description: 'Return user entity related to the logged in user',
+  })
   me(@UserId() userId: string): Promise<User> {
     return this.em.findOneOrFail(User, { id: userId });
   }
