@@ -14,7 +14,7 @@ export class MailConfig implements MailerOptionsFactory {
     return {
       transport: this.config.get('SMTP_URI'),
       defaults: {
-        from: '"isquare train" <train@isquare.ai>',
+        from: '"web starter" <change@mywebsite.ai>',
       },
       template: {
         adapter: new EjsAdapter(),

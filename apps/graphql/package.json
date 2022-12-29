@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "mikro": "NODE_ENV=dev mikro-orm",
-    "gen:migration": "rimraf src/database/migrations/.snapshot-isquare.json src/database/migrations/* && pnpm mikro schema:drop -r && pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:fresh --seed",
+    "gen:migration": "rimraf src/database/migrations/.snapshot-main.json src/database/migrations/* && pnpm mikro schema:drop -r && pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:fresh --seed",
     "migration:create": "pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:up",
     "fresh": "pnpm mikro migration:fresh --seed"
   },
