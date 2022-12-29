@@ -42,7 +42,7 @@ const NewPasswordPage: NextPage = () => {
 
   return (
     <CenterLayout>
-      <Paper>
+      <Paper sx={{ p: 2 }}>
         <Typography component="h1" variant="h5" align="center">
           Enter your new password
         </Typography>

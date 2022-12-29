@@ -10,7 +10,7 @@ const VerifyEmailPage: NextPage = () => {
 
   return (
     <CenterLayout>
-      <Paper>
+      <Paper sx={{ p: 2 }}>
         <Typography component="h1" variant="h5" align="center">
           Your email was successfully verified
         </Typography>
