@@ -1,5 +1,5 @@
 {
-  "name": "@squarefactory/isquare-docs",
+  "name": "web-starter-docs",
   "version": "0.0.0",
   "scripts": {
     "docusaurus": "docusaurus",

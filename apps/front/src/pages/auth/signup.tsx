@@ -58,7 +58,7 @@ const SignupPage: NextPage = () => {
     <CenterLayout>
       <Paper sx={{ p: 2 }}>
         <Typography component="h1" variant="h5" align="center">
-          Signup to iSquare
+          Signup
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} data-test="signup--form">
           <TextField control={control} name="email" type="email" label="Email address" />

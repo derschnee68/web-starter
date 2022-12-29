@@ -17,7 +17,7 @@ export default class TrainDocument extends Document {
           <link rel="manifest" href="/favicons/manifest.webmanifest" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="theme-color" content="#fff" />
-          <meta name="application-name" content="iSquare Train" />
+          <meta name="application-name" content="Web starter" />
           <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png" />
           <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png" />
@@ -31,7 +31,7 @@ export default class TrainDocument extends Document {
           <link rel="apple-touch-icon" sizes="1024x1024" href="/favicons/apple-touch-icon-1024x1024.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <meta name="apple-mobile-web-app-title" content="iSquare Train" />
+          <meta name="apple-mobile-web-app-title" content="Web starter" />
           <link
             rel="apple-touch-startup-image"
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"

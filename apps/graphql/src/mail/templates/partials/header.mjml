@@ -4,10 +4,10 @@
     <!--suppress InvalidUrlAttribute -->
     <mj-image
       width="192px"
-      src="../../assets/isquare.png"
-      title="Navigate to the iSquare website"
+      src="../../assets/github.png"
+      title="Navigate to the website"
       href="<%= _app.url %>"
-      alt="iSquare logo"
+      alt="logo"
     />
   </mj-column>
 </mj-section>

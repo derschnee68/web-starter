@@ -1,4 +1,4 @@
-iSquare: Reset your password
+Reset your password
 
 In order to be able login please click the link below to activate your account:
 

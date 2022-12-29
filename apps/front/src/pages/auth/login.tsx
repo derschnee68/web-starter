@@ -72,7 +72,7 @@ const LoginPage: NextPage = () => {
     <CenterLayout>
       <Paper sx={{ p: 2 }}>
         <Typography variant="h5" component="h1" align="center" sx={{ mb: 6 }}>
-          Welcome back to iSquare!
+          Welcome back!
         </Typography>
 
         {isFromSignUp && (
