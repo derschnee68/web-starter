@@ -20,7 +20,7 @@ const ActivatePage: NextPage = () => {
 
   return data ? (
     <CenterLayout>
-      <Paper>
+      <Paper sx={{ p: 2 }}>
         <Typography component="h1" variant="h5" align="center">
           Activation of your account
         </Typography>

@@ -15,7 +15,6 @@ import useJwt from '../../lib/auth/useJwt';
 import TextField from '../../lib/forms/TextField';
 import Link from '../../lib/routing/Link';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
-import decodeJWT from '../../lib/utils/jwt';
 import { AlertTitle } from '@mui/lab';
 import { Paper } from '@mui/material';
 
@@ -45,8 +44,6 @@ const LoginPage: NextPage = () => {
           next = router.query.next as string;
         }
 
-        const userId = decodeJWT(data.login.token).sub;
-
         void router.push(next);
       }
     },
@@ -73,7 +70,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <CenterLayout>
-      <Paper>
+      <Paper sx={{ p: 2 }}>
         <Typography variant="h5" component="h1" align="center" sx={{ mb: 6 }}>
           Welcome back to iSquare!
         </Typography>

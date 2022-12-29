@@ -56,7 +56,7 @@ const SignupPage: NextPage = () => {
 
   return (
     <CenterLayout>
-      <Paper>
+      <Paper sx={{ p: 2 }}>
         <Typography component="h1" variant="h5" align="center">
           Signup to iSquare
         </Typography>
