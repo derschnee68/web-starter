@@ -19,7 +19,9 @@ export default class JwtStrategy extends PassportStrategy(Strategy) {
    * @return {Promise<Loaded<User, never> | null>}
    */
   validate(payload: unknown) {
-    if (!(typeof payload === 'object' && payload !== null && 'sub' in payload)) {
+    if (
+      !(typeof payload === 'object' && payload !== null && 'sub' in payload)
+    ) {
       return null;
     }
 

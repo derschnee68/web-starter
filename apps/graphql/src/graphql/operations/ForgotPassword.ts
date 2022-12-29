@@ -35,17 +35,13 @@ export default class ForgotPassword {
       return true;
     }
 
-    const password = await this.ldap
-      .findUser(user.id)
-      .then((u) => u.userPassword);
-
     await this.mailer.sendMail(
       await resetPassword(
         { to: user.email },
         {
           token: this.jwt.sign(
             {
-              sum: createHash('md5').update(password).digest('hex'),
+              sum: createHash('md5').update(user.password).digest('hex'),
             },
             {
               subject: email,

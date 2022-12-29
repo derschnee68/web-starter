@@ -22,9 +22,11 @@ export default function createEmail<T extends object>(
     };
 
     return {
-      html: mjml?.html ? await render(mjml.html, trusted, { async: true }) : undefined,
+      html: mjml?.html
+        ? await render(mjml.html, trusted, { async: true })
+        : undefined,
       text: text ? await render(text, trusted, { async: true }) : undefined,
-      attachments: mjml?.attachments,
+      attachments: mjml?.attachments as ISendMailOptions['attachments'],
       ...defaultOptions,
       ...options,
     };

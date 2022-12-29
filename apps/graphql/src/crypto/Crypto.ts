@@ -19,9 +19,14 @@ export default class Crypto {
    */
   deriveKey(salt: string): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
-      scrypt(this.config.get<string>('APP_SECRET'), salt, 32, (err, derivedKey) => {
-        err ? reject(err) : resolve(derivedKey);
-      });
+      scrypt(
+        this.config.get<string>('APP_SECRET'),
+        salt,
+        32,
+        (err, derivedKey) => {
+          err ? reject(err) : resolve(derivedKey);
+        },
+      );
     });
   }
 

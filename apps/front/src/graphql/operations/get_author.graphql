@@ -1,3 +1,0 @@
-query GetAuthor($number: Int!) {
-getAuthor(id: $number)
-}

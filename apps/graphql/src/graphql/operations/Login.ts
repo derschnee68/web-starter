@@ -1,5 +1,12 @@
 import { EntityManager } from '@mikro-orm/core';
-import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ArgsType,
+  Field,
+  Mutation,
+  ObjectType,
+  Resolver,
+} from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import Public from '../../auth/Public';
 import { compare } from '../../crypto/utils/ssha';
@@ -22,16 +29,24 @@ class LoginResult {
   @Field({ description: 'The generated login JWT' })
   token!: string;
 
-  @Field({ description: 'The JWT claims. They can also be obtained from the JWT payload.' })
+  @Field({
+    description:
+      'The JWT claims. They can also be obtained from the JWT payload.',
+  })
   payload!: JwtPayload;
 }
 
 @Resolver()
 export default class Login {
-  constructor(private readonly em: EntityManager, private readonly jwt: JwtService) {}
+  constructor(
+    private readonly em: EntityManager,
+    private readonly jwt: JwtService,
+  ) {}
 
   @Public()
-  @Mutation(() => LoginResult, { description: 'Login in to the application with email/password credentials.' })
+  @Mutation(() => LoginResult, {
+    description: 'Login in to the application with email/password credentials.',
+  })
   async login(@Args() { email, password }: LoginArgs): Promise<LoginResult> {
     const user = await this.em.findOne(User, { email });
 
@@ -39,7 +54,8 @@ export default class Login {
       throw new InvalidCredentials();
     }
 
-    const currentPassword = await this.ldap.findUser(user.id).then((u) => u.userPassword);
+    const currentPassword = user.password;
+    console.log(password, currentPassword, compare(password, currentPassword));
 
     if (!currentPassword || !compare(password, currentPassword)) {
       throw new InvalidCredentials();

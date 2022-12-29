@@ -20,8 +20,14 @@ export function hash(clear: string, saltLength = 20): string {
   return `${PREFIX}${hash.toString('base64')}`;
 }
 
-export function compare(clear: string, hashed: string, saltLength = 20): boolean {
-  const salt = Buffer.from(hashed.replace('{SSHA}', ''), 'base64').slice(saltLength);
+export function compare(
+  clear: string,
+  hashed: string,
+  saltLength = 20,
+): boolean {
+  const salt = Buffer.from(hashed.replace('{SSHA}', ''), 'base64').slice(
+    saltLength,
+  );
   const hash = Buffer.concat([
     createHash('sha1')
       .update(Buffer.concat([Buffer.from(clear), salt]))

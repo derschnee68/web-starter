@@ -22,6 +22,10 @@ export default class User {
   @Unique()
   email!: string;
 
+  @Field(() => String, { description: 'The user password' })
+  @Property()
+  password!: string;
+
   @Field(() => Date, { description: 'The date when the user has registered' })
   @Property({ columnType: 'datetime' })
   createdAt = new Date();

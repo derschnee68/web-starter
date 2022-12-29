@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql';
-import type { EntityRepository } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/core';
 import User from '../../database/entities/User';
 import Public from '../../auth/Public';
@@ -23,15 +22,10 @@ class ResetPasswordArgs {
 @Injectable()
 @Resolver()
 export default class ResetPassword {
-  private readonly users: EntityRepository<User>;
-
   constructor(
-    em: EntityManager,
     private readonly jwt: JwtService,
-    private readonly ldap: LdapService,
-  ) {
-    this.users = em.getRepository(User);
-  }
+    private readonly em: EntityManager,
+  ) {}
 
   @Public()
   @Mutation(() => Boolean, {
@@ -48,14 +42,15 @@ export default class ResetPassword {
       throw new Error('Invalid reset token');
     }
 
-    const user = await this.users.findOne({ email: payload.sub });
+    const user = await this.em.findOneOrFail(User, { email: payload.sub });
 
     if (!user) {
       throw new Error('Invalid reset token');
     }
 
-    await this.ldap.updateUser(user.id, { userPassword: hash(password) });
+    user.password = hash(password);
 
+    await this.em.flush();
     return true;
   }
 }

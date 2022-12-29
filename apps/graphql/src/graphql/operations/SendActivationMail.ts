@@ -26,7 +26,7 @@ export default class SendActivationMail {
       'Create new user account by providing email/password credentials.',
   })
   async sendActivationMail(@Args() { email }: SendActivationMailArgs) {
-    const userId = (await this.em.findOneOrFail(User, { email })).id;
+    const user = await this.em.findOneOrFail(User, { email });
 
     await this.mailer.sendMail(
       await activateAccount(
@@ -34,7 +34,7 @@ export default class SendActivationMail {
         {
           token: this.jwt.sign(
             {
-              sum: user.userPassword,
+              sum: user.password,
             },
             {
               subject: email,

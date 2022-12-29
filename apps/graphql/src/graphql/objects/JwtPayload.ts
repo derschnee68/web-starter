@@ -17,7 +17,10 @@ export default class JwtPayload {
   @Field(() => Int, { description: 'When the JWT expires.' })
   exp!: number;
 
-  @Field(() => Int, { description: 'When the JWT is considered as valid.', nullable: true })
+  @Field(() => Int, {
+    description: 'When the JWT is considered as valid.',
+    nullable: true,
+  })
   nbf!: number | null;
 
   @Field(() => Int, { description: 'When the JWT was issued.' })
