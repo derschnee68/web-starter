@@ -7,7 +7,6 @@
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "rimraf dist && nest build",
     "dev": "NODE_ENV=development nest start --watch",
     "dev:test": "NODE_ENV=test nest start --watch",
     "start:test": "rimraf dist && nest build && NODE_ENV=test node dist/main.js",
@@ -15,6 +14,8 @@
     "test": "jest",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:e2e:watch": "jest --config ./test/jest-e2e.json --watch",
+    "build": "rimraf dist && nest build",
+    "docker": "docker build -f Dockerfile ../..",
     "mikro": "NODE_ENV=dev mikro-orm",
     "gen:migration": "rimraf src/database/migrations/.snapshot-main.json src/database/migrations/* && pnpm mikro schema:drop -r && pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:fresh --seed",
     "migration:create": "pnpm mikro migration:create && prettier -w src/database/migrations/*.ts && pnpm mikro migration:up",
