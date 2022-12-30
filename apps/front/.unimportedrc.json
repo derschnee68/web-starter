@@ -29,6 +29,7 @@
     "dayjs/plugin/duration",
     "dayjs/plugin/relativeTime",
     "debug",
+    "encoding",
     "execa",
     "executable",
     "extract-files",
@@ -44,6 +45,7 @@
     "js-yaml",
     "lazy-ass",
     "listr2",
+    "lodash",
     "log-symbols",
     "minimist",
     "nyc",
@@ -51,15 +53,14 @@
     "pnpapi",
     "pretty-bytes",
     "proxy-from-env",
+    "qs",
     "request-progress",
     "semver",
     "supports-color",
     "tmp",
     "untildify",
-    "yauzl",
     "whatwg-url",
-    "encoding",
-    "qs"
+    "yauzl"
   ],
   "ignoreUnused": [
     "@babel/preset-env",

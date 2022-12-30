@@ -6,10 +6,10 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
-import CenterLayout from '../../components/layout/CenterLayout';
 import TextField from '../../lib/forms/TextField';
 import { useForgotPasswordMutation } from '../../graphql/operations/forgotPassword.generated';
-import { Paper } from '@mui/material';
+import AuthLayout from '../../components/layout/AuthLayout';
+import Box from '@mui/material/Box';
 
 const ResetPasswordSchema = z.object({
   email: z.string().nonempty().email(),
@@ -36,22 +36,16 @@ const ResetPage: NextPage = () => {
   };
 
   return (
-    <CenterLayout>
-      <Paper sx={{ p: 2 }}>
-        <Typography component="h1" variant="h5" align="center">
-          Reset your password
-        </Typography>
+    <AuthLayout title="Forgot your password ?">
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }} data-test="reset--form">
+        <TextField control={control} label="Email" name="email" type="email" />
+        <LoadingButton loading={loading} fullWidth={true} sx={{ mt: 2, mb: 1 }} type="submit">
+          Reset password
+        </LoadingButton>
+      </Box>
 
-        <form onSubmit={handleSubmit(onSubmit)} data-test="reset--form">
-          <TextField control={control} label="Email" name="email" type="email" />
-          <LoadingButton loading={loading} fullWidth={true} sx={{ mt: 2, mb: 1 }} type="submit">
-            Reset password
-          </LoadingButton>
-        </form>
-
-        {isReset && <Typography align="center">An email with a reset link has been sent to this address.</Typography>}
-      </Paper>
-    </CenterLayout>
+      {isReset && <Typography align="center">An email with a reset link has been sent to this address.</Typography>}
+    </AuthLayout>
   );
 };
 

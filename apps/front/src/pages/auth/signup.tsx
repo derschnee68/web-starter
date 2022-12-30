@@ -5,13 +5,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Typography from '@mui/material/Typography';
-import CenterLayout from '../../components/layout/CenterLayout';
 import { useSignupMutation } from '../../graphql/operations/signup.generated';
 import TextField from '../../lib/forms/TextField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import onError from '../../graphql/onError';
-import { Paper } from '@mui/material';
+import AuthLayout from '../../components/layout/AuthLayout';
 
 const SignupSchema = z
   .object({
@@ -54,28 +52,23 @@ const SignupPage: NextPage = () => {
   };
 
   return (
-    <CenterLayout>
-      <Paper sx={{ p: 2 }}>
-        <Typography component="h1" variant="h5" align="center">
-          Signup
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)} data-test="signup--form">
-          <TextField control={control} name="email" type="email" label="Email address" />
-          <TextField control={control} name="password" type="password" label="Password" />
-          <TextField control={control} name="passwordConfirmation" type="password" label="Password confirmation" />
+    <AuthLayout title="Sign up">
+      <form onSubmit={handleSubmit(onSubmit)} data-test="signup--form">
+        <TextField control={control} name="email" type="email" label="Email address" />
+        <TextField control={control} name="password" type="password" label="Password" />
+        <TextField control={control} name="passwordConfirmation" type="password" label="Password confirmation" />
 
-          <LoadingButton
-            type="submit"
-            fullWidth={true}
-            sx={{ mt: 2, mb: 1 }}
-            loading={loading}
-            data-test="signup__button"
-          >
-            Sign up
-          </LoadingButton>
-        </form>
-      </Paper>
-    </CenterLayout>
+        <LoadingButton
+          type="submit"
+          fullWidth={true}
+          sx={{ mt: 2, mb: 1 }}
+          loading={loading}
+          data-test="signup__button"
+        >
+          Sign up
+        </LoadingButton>
+      </form>
+    </AuthLayout>
   );
 };
 

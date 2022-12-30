@@ -7,16 +7,16 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
-import Typography from '@mui/material/Typography';
-import CenterLayout from '../../components/layout/CenterLayout';
 import onError from '../../graphql/onError';
 import { useLoginMutation } from '../../graphql/operations/login.generated';
 import useJwt from '../../lib/auth/useJwt';
 import TextField from '../../lib/forms/TextField';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
 import { AlertTitle } from '@mui/lab';
-import { Link, Paper } from '@mui/material';
-import NextLink from 'next/link';
+import { Link } from '@mui/material';
+import AuthLayout from '../../components/layout/AuthLayout';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -69,52 +69,49 @@ const LoginPage: NextPage = () => {
   };
 
   return (
-    <CenterLayout>
-      <Paper sx={{ p: 2 }}>
-        <Typography variant="h5" component="h1" align="center" sx={{ mb: 6 }}>
-          Welcome back!
-        </Typography>
+    <AuthLayout title="Welcome back!">
+      {isFromSignUp && (
+        <Alert severity="info">
+          <AlertTitle>Please confirm your account to login</AlertTitle>A confirmation email has been sent to you. If you
+          have not received any email after a few minutes, please check your spam folder.
+        </Alert>
+      )}
 
-        {isFromSignUp && (
-          <Alert severity="info">
-            <AlertTitle>Please confirm your account to login</AlertTitle>A confirmation email has been sent to you. If
-            you have not received any email after a few minutes, please check your spam folder.
-          </Alert>
-        )}
+      {error && (
+        <Alert severity="error" data-test="login--error">
+          {error}
+          {error === 'Unverified account' && (
+            <span
+              className="underline cursor-pointer"
+              onClick={() => {
+                void resendActivationEmail({ variables: { email: getValues('email') } });
+              }}
+            ></span>
+          )}
+        </Alert>
+      )}
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="login--form" sx={{ width: '100%' }}>
+        <TextField control={control} name="email" type="email" label="Email address" />
+        <TextField control={control} name="password" type="password" label="Password" />
 
-        {error && (
-          <Alert severity="error" data-test="login--error">
-            {error}
-            {error === 'Unverified account' && (
-              <span
-                className="underline cursor-pointer"
-                onClick={() => {
-                  void resendActivationEmail({ variables: { email: getValues('email') } });
-                }}
-              ></span>
-            )}
-          </Alert>
-        )}
+        <LoadingButton type="submit" fullWidth={true} sx={{ mt: 3, mb: 2 }} loading={loading}>
+          Login
+        </LoadingButton>
 
-        <form onSubmit={handleSubmit(onSubmit)} data-test="login--form">
-          <TextField control={control} name="email" type="email" label="Email address" />
-          <TextField control={control} name="password" type="password" label="Password" />
-
-          <LoadingButton type="submit" fullWidth={true} sx={{ mt: 2, mb: 1 }} loading={loading}>
-            Login
-          </LoadingButton>
-        </form>
-
-        <Typography variant="caption" paragraph={true} sx={{ m: 0 }} align="center">
-          No account yet? <Link href="/auth/signup">Sign up</Link>
-        </Typography>
-        <Typography variant="caption" paragraph={true} sx={{ m: 0 }} align="center">
-          <Link href="/auth/forgot" data-test="login--forgotPassword">
-            Forgot your password?
-          </Link>
-        </Typography>
-      </Paper>
-    </CenterLayout>
+        <Grid container>
+          <Grid item xs>
+            <Link href="/auth/forgot" variant="body2" data-test="login--forgotPassword">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href="/auth/signup" variant="body2">
+              Don't have an account? Sign Up
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </AuthLayout>
   );
 };
 
