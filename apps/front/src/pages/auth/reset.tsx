@@ -57,14 +57,7 @@ const NewPasswordPage: NextPage = () => {
             type="password"
           />
 
-          <LoadingButton
-            disabled={!areEqual}
-            fullWidth={true}
-            loading={loading}
-            variant="contained"
-            sx={{ mt: 2, mb: 1 }}
-            type="submit"
-          >
+          <LoadingButton disabled={!areEqual} fullWidth={true} loading={loading} sx={{ mt: 2, mb: 1 }} type="submit">
             Reset your password
           </LoadingButton>
         </form>

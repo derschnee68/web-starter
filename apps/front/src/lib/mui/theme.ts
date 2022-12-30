@@ -1,51 +1,21 @@
 import '@mui/lab/themeAugmentation';
 import type { ThemeOptions } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import { blue, orange } from '@mui/material/colors';
+import { LinkBehaviour } from './LinkBehaviour';
+import type { LinkProps } from '@mui/material';
 
 export const themeOptions: ThemeOptions = {
-  typography: (palette) => ({
+  typography: () => ({
     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-    allVariants: {
-      color: palette.tertiary.main,
-    },
   }),
-
-  // Palette and colors are extracted from the brand guidelines document
   palette: {
     primary: {
-      main: '#00cdac',
-      light: '#55d4c0',
-      lighter: '#98e6d9',
-      lighter2: '#d1f2ed',
-      lighter3: '#f2fffd',
-      contrastText: '#ffffff',
+      main: blue[500],
     },
     secondary: {
-      main: '#6753ff',
-      light: '#a499ff',
-      lighter: '#c8c2ff',
-      lighter2: '#f2f0f6',
-      lighter3: '#f3f2ff',
+      main: orange[500],
     },
-    tertiary: {
-      main: '#120641',
-      light: '#241763',
-      lighter: '#362397',
-      lighter2: '#6650d6',
-      lighter3: '#f3f2ff',
-    },
-    neutral: {
-      main: '#495773',
-      light: '#697999',
-      lighter: '#8997b4',
-      lighter2: '#b0bacd',
-      lighter3: '#d8dce6',
-      contrastText: '#ffffff',
-    },
-  },
-
-  shape: {
-    borderRadius: 0,
   },
 
   components: {
@@ -69,6 +39,16 @@ export const themeOptions: ThemeOptions = {
         root: {
           minWidth: '40px',
         },
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehaviour,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehaviour,
       },
     },
   },

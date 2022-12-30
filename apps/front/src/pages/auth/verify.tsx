@@ -18,7 +18,6 @@ const VerifyEmailPage: NextPage = () => {
         <Button
           fullWidth={true}
           onClick={() => void router.push('/auth/login', undefined, { shallow: true })}
-          variant="contained"
           sx={{ mt: 2, mb: 1 }}
         >
           Go to login

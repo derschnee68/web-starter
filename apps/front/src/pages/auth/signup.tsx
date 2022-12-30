@@ -1,4 +1,3 @@
-import pick from 'lodash/pick';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { SubmitHandler } from 'react-hook-form';
@@ -43,10 +42,10 @@ const SignupPage: NextPage = () => {
     }),
   });
 
-  const onSubmit: SubmitHandler<SignupData> = (data) => {
+  const onSubmit: SubmitHandler<SignupData> = ({ email, password }) => {
     void toast.promise(
       signup({
-        variables: pick(data, ['email', 'password']),
+        variables: { email, password },
       }),
       {
         success: 'Registration succeed, you may now login',
@@ -68,7 +67,6 @@ const SignupPage: NextPage = () => {
           <LoadingButton
             type="submit"
             fullWidth={true}
-            variant="contained"
             sx={{ mt: 2, mb: 1 }}
             loading={loading}
             data-test="signup__button"
