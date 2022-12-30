@@ -48,8 +48,11 @@ const LoginPage: NextPage = () => {
       }
     },
     onError: onError({
-      INVALID_CREDENTIALS: () => setError('Invalid credentials'),
-      UNVERIFIED_ACCOUNT: () => setError('Unverified account'),
+      INVALID_CREDENTIALS: () => setError('The email or password you entered is incorrect.'),
+      UNVERIFIED_ACCOUNT: () =>
+        setError(
+          'This email address has not been confirmed. Please check out your mailbox for your confirmation email.',
+        ),
     }),
   });
 
@@ -101,7 +104,7 @@ const LoginPage: NextPage = () => {
         <Grid container>
           <Grid item xs>
             <Link href="/auth/forgot" variant="body2" data-test="login--forgotPassword">
-              Forgot password?
+              Forgot your password?
             </Link>
           </Grid>
           <Grid item>
