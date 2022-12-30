@@ -44,7 +44,7 @@ const ResetPage: NextPage = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} data-test="reset--form">
           <TextField control={control} label="Email" name="email" type="email" />
-          <LoadingButton loading={loading} fullWidth={true} variant="contained" sx={{ mt: 2, mb: 1 }} type="submit">
+          <LoadingButton loading={loading} fullWidth={true} sx={{ mt: 2, mb: 1 }} type="submit">
             Reset password
           </LoadingButton>
         </form>

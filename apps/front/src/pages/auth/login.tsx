@@ -16,6 +16,7 @@ import TextField from '../../lib/forms/TextField';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
 import { AlertTitle } from '@mui/lab';
 import { Link, Paper } from '@mui/material';
+import NextLink from 'next/link';
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -99,7 +100,7 @@ const LoginPage: NextPage = () => {
           <TextField control={control} name="email" type="email" label="Email address" />
           <TextField control={control} name="password" type="password" label="Password" />
 
-          <LoadingButton type="submit" fullWidth={true} variant="contained" sx={{ mt: 2, mb: 1 }} loading={loading}>
+          <LoadingButton type="submit" fullWidth={true} sx={{ mt: 2, mb: 1 }} loading={loading}>
             Login
           </LoadingButton>
         </form>
