@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Link from 'next/link';
+import { Link } from '@mui/material';
 
 export default function Custom404() {
   return (
