@@ -4,7 +4,6 @@ import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import Public from '../../auth/Public';
 import User from '../../database/entities/User';
-import activateAccount from '../../mail/templates/activateAccount/activateAccount';
 import { isEnvironment } from '../../utils/environment';
 import Req from '../decorators/Req';
 import { Request } from 'express';
@@ -60,7 +59,7 @@ export default class Register {
     }
 
     await this.em.persistAndFlush(user);
-
+    /*
     await this.mailer.sendMail(
       await activateAccount(
         { to: user.email },
@@ -77,6 +76,7 @@ export default class Register {
         },
       ),
     );
+    */
 
     return true;
   }
