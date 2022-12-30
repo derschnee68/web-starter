@@ -45,6 +45,11 @@ export const themeOptions: ThemeOptions = {
       defaultProps: {
         component: LinkBehaviour,
       } as LinkProps,
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+        },
+      },
     },
     MuiButtonBase: {
       defaultProps: {
