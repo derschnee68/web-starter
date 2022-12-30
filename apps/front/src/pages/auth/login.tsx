@@ -13,10 +13,9 @@ import onError from '../../graphql/onError';
 import { useLoginMutation } from '../../graphql/operations/login.generated';
 import useJwt from '../../lib/auth/useJwt';
 import TextField from '../../lib/forms/TextField';
-import Link from '../../lib/routing/Link';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
 import { AlertTitle } from '@mui/lab';
-import { Paper } from '@mui/material';
+import { Link, Paper } from '@mui/material';
 
 const LoginSchema = z.object({
   email: z.string().email(),
