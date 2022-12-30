@@ -1,5 +1,4 @@
 import type { Request } from 'express';
-import set from 'lodash/set';
 import type { Observable } from 'rxjs';
 import type { ExecutionContext } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
@@ -10,6 +9,7 @@ import type { IAuthGuard } from '@nestjs/passport';
 import { AuthGuard as NestAuthGuard } from '@nestjs/passport';
 import type { OutputContext } from '../types/context';
 import { IS_PUBLIC_KEY } from './Public';
+import { set } from 'lodash';
 
 @Injectable()
 export default class AuthGuard

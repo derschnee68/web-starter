@@ -4,6 +4,8 @@ ignores:
   - esbuild # peer dependency of cypress-esbuild-preprocessor
   - babel-loader
   - '@babel/preset-env'
+  - typescript
+  - tsconfig
 
   # GraphQL codegen
   - '@graphql-codegen/introspection'

@@ -8,6 +8,11 @@ ignores:
   - wait-on
   - '../../.prettierrc.js'
 
+  # Testing
+  - '@types/jest'
+  - '@types/supertest'
+  - supertest
+
   # Webpack
   - raw-loader
   - ts-loader
