@@ -9,10 +9,11 @@ import { useSignupMutation } from '../../graphql/operations/signup.generated';
 import TextField from '../../lib/forms/TextField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AuthLayout from '../../components/layout/AuthLayout';
-import { IconButton, InputAdornment, Link, Tooltip } from '@mui/material';
-import React, { useState } from 'react';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Link } from '@mui/material';
+import React from 'react';
 import { passwordSchema } from '../../lib/auth/passwordSchema';
+import Typography from '@mui/material/Typography';
+import PasswordTextField from '../../lib/forms/PasswordTextField';
 
 const SignupSchema = z.object({
   email: z.string().email(),
@@ -23,9 +24,10 @@ type SignupData = z.infer<typeof SignupSchema>;
 
 const SignupPage: NextPage = () => {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+  const { control, handleSubmit, setError, formState } = useForm<SignupData>({
+    resolver: zodResolver(SignupSchema),
+  });
 
-  const { control, handleSubmit, setError } = useForm<SignupData>({ resolver: zodResolver(SignupSchema) });
   const [signup, { loading }] = useSignupMutation({
     onCompleted: (data) => {
       switch (data.signUp.__typename) {
@@ -45,32 +47,10 @@ const SignupPage: NextPage = () => {
   };
 
   return (
-    <AuthLayout title="Sign up">
+    <AuthLayout title="Create your account">
       <form onSubmit={handleSubmit(onSubmit)} data-test="signup--form">
         <TextField control={control} name="email" type="email" label="Email address" />
-
-        <TextField
-          control={control}
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          label="Password"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Tooltip title={showPassword ? 'Hide password' : 'Show password'}>
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((show) => !show)}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </Tooltip>
-              </InputAdornment>
-            ),
-          }}
-        />
-
+        <PasswordTextField control={control} />
         <LoadingButton
           type="submit"
           fullWidth={true}
@@ -78,13 +58,13 @@ const SignupPage: NextPage = () => {
           loading={loading}
           data-test="signup__button"
         >
-          Sign up
+          Create account
         </LoadingButton>
       </form>
 
-      <Link href="/auth/login" variant="body2" sx={{ alignSelf: 'start' }}>
-        Back to login page
-      </Link>
+      <Typography variant="body2" sx={{ mb: 1 }}>
+        Have an account ? <Link href="/auth/login">Sign in</Link>
+      </Typography>
     </AuthLayout>
   );
 };
