@@ -3,24 +3,25 @@ import { useRouter } from 'next/router';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Alert from '@mui/material/Alert';
-import onError from '../../graphql/onError';
 import { useLoginMutation } from '../../graphql/operations/login.generated';
 import useJwt from '../../lib/auth/useJwt';
 import TextField from '../../lib/forms/TextField';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
 import { AlertTitle } from '@mui/lab';
-import { Link } from '@mui/material';
+import { IconButton, InputAdornment, Link, Tooltip } from '@mui/material';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { passwordSchema } from '../../lib/auth/passwordSchema';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const LoginSchema = z.object({
   email: z.string().email(),
-  password: z.string().nonempty(),
+  password: passwordSchema,
 });
 
 type LoginData = z.infer<typeof LoginSchema>;
@@ -33,42 +34,35 @@ const LoginPage: NextPage = () => {
   const { control, handleSubmit, getValues } = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const [login, { loading }] = useLoginMutation({
     onCompleted: (data) => {
-      if (data.login.token) {
-        write(data.login.token);
-        let next = '/';
+      switch (data.login.__typename) {
+        case 'InvalidCredentialsProblem':
+          return void setError('The email and password combination is invalid.');
+        case 'UnverifiedAccountProblem':
+          return void setError('This account is not verified, please check your email.');
+        case 'LoginSuccess': {
+          write(data.login.token);
+          let next = '/';
 
-        if (typeof router.query.next === 'string') {
-          next = router.query.next as string;
+          if (typeof router.query.next === 'string') {
+            next = router.query.next as string;
+          }
+
+          void router.push(next);
+          return;
         }
-
-        void router.push(next);
       }
     },
-    onError: onError({
-      INVALID_CREDENTIALS: () => setError('The email or password you entered is incorrect.'),
-      UNVERIFIED_ACCOUNT: () =>
-        setError(
-          'This email address has not been confirmed. Please check out your mailbox for your confirmation email.',
-        ),
-    }),
   });
 
   const [resendActivationEmail] = useSendActivationMailMutation();
 
   const onSubmit: SubmitHandler<LoginData> = (data) => {
-    void login({ variables: data }).then(
-      (v) => {
-        console.warn(v);
-        return v;
-      },
-      (e) => {
-        console.warn(e);
-        return e;
-      },
-    );
+    setError(undefined);
+    void login({ variables: data });
   };
 
   return (
@@ -95,7 +89,27 @@ const LoginPage: NextPage = () => {
       )}
       <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="login--form" sx={{ width: '100%' }}>
         <TextField control={control} name="email" type="email" label="Email address" />
-        <TextField control={control} name="password" type="password" label="Password" />
+        <TextField
+          control={control}
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          label="Password"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Tooltip title={showPassword ? 'Hide password' : 'Show password'}>
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((show) => !show)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </Tooltip>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <LoadingButton type="submit" fullWidth={true} sx={{ mt: 3, mb: 2 }} loading={loading}>
           Login
@@ -109,7 +123,7 @@ const LoginPage: NextPage = () => {
           </Grid>
           <Grid item>
             <Link href="/auth/signup" variant="body2">
-              Don't have an account? Sign Up
+              Don't have an account? Sign up
             </Link>
           </Grid>
         </Grid>

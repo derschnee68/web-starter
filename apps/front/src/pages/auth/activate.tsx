@@ -23,7 +23,7 @@ const ActivatePage: NextPage = () => {
       {data.activateAccount ? (
         <Typography align="center" paddingTop={4}>
           Your account was successfully activated.
-          <LoadingButton fullWidth={true} sx={{ mt: 2, mb: 1 }} href="/auth/login">
+          <LoadingButton fullWidth={true} sx={{ mt: 3, mb: 2 }} href="/auth/login">
             Log-in
           </LoadingButton>
         </Typography>

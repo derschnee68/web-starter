@@ -1,14 +1,22 @@
 import { EntityManager } from '@mikro-orm/core';
 import { MailerService } from '@nestjs-modules/mailer';
-import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  ArgsType,
+  createUnionType,
+  Field,
+  Mutation,
+  ObjectType,
+  Resolver,
+} from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import Public from '../../auth/Public';
 import User from '../../database/entities/User';
 import { isEnvironment } from '../../utils/environment';
 import Req from '../decorators/Req';
 import { Request } from 'express';
-import { ApolloError } from 'apollo-server-core';
 import { hash } from '../../crypto/utils/ssha';
+import Success from '../objects/Success';
 
 @ArgsType()
 class RegisterArgs {
@@ -19,8 +27,22 @@ class RegisterArgs {
   password!: string;
 }
 
+const duplicateEmailProblem = 'This email already exists.';
+
+@ObjectType({ description: duplicateEmailProblem })
+class DuplicateEmailProblem {
+  @Field({ description: `static: ${duplicateEmailProblem}` })
+  message: string = duplicateEmailProblem;
+}
+
+export const SignUpResult = createUnionType({
+  name: 'SignUpResult',
+  types: () => [Success, DuplicateEmailProblem] as const,
+  description: 'The result of the SignUp mutation.',
+});
+
 @Resolver()
-export default class Register {
+export default class SignUp {
   constructor(
     private readonly em: EntityManager,
     private readonly jwt: JwtService,
@@ -28,19 +50,16 @@ export default class Register {
   ) {}
 
   @Public()
-  @Mutation(() => Boolean, {
+  @Mutation(() => SignUpResult, {
     description:
-      'Create new user account by providing email/password credentials.',
+      'Create a new user account by providing email/password credentials.',
   })
-  async register(
+  async signUp(
     @Args() { email, password: clearPassword }: RegisterArgs,
     @Req() req: Request,
-  ) {
+  ): Promise<typeof SignUpResult> {
     if (await this.em.findOne(User, { email: email })) {
-      throw new ApolloError(
-        'This email is already linked to an account.',
-        'DUPLICATE_EMAIL',
-      );
+      return new DuplicateEmailProblem();
     }
 
     const password = hash(clearPassword);
@@ -78,6 +97,6 @@ export default class Register {
     );
     */
 
-    return true;
+    return new Success();
   }
 }

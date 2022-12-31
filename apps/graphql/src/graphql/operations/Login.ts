@@ -2,6 +2,7 @@ import { EntityManager } from '@mikro-orm/core';
 import {
   Args,
   ArgsType,
+  createUnionType,
   Field,
   Mutation,
   ObjectType,
@@ -11,8 +12,6 @@ import { JwtService } from '@nestjs/jwt';
 import Public from '../../auth/Public';
 import { compare } from '../../crypto/utils/ssha';
 import User from '../../database/entities/User';
-import InvalidCredentials from '../../errors/InvalidCredentials';
-import UnverifiedAccount from '../../errors/UnverifiedAccount';
 import JwtPayload from '../objects/JwtPayload';
 
 @ArgsType()
@@ -24,8 +23,8 @@ class LoginArgs {
   password!: string;
 }
 
-@ObjectType()
-class LoginResult {
+@ObjectType({ description: 'The login mutation is a success.' })
+class LoginSuccess {
   @Field({ description: 'The generated login JWT' })
   token!: string;
 
@@ -35,6 +34,34 @@ class LoginResult {
   })
   payload!: JwtPayload;
 }
+
+const invalidCredentialsMessage =
+  'The email and password combination is invalid.';
+
+@ObjectType({ description: invalidCredentialsMessage })
+class InvalidCredentialsProblem {
+  @Field({ description: `static: ${invalidCredentialsMessage}` })
+  message: string = invalidCredentialsMessage;
+}
+
+const unverifiedAccountMessage = 'This email is not verified.';
+
+@ObjectType({ description: unverifiedAccountMessage })
+class UnverifiedAccountProblem {
+  @Field({ description: `static: ${unverifiedAccountMessage}` })
+  message: string = unverifiedAccountMessage;
+}
+
+export const LoginResult = createUnionType({
+  name: 'LoginResult',
+  types: () =>
+    [
+      LoginSuccess,
+      InvalidCredentialsProblem,
+      UnverifiedAccountProblem,
+    ] as const,
+  description: 'The result of the Login mutation.',
+});
 
 @Resolver()
 export default class Login {
@@ -47,21 +74,23 @@ export default class Login {
   @Mutation(() => LoginResult, {
     description: 'Login in to the application with email/password credentials.',
   })
-  async login(@Args() { email, password }: LoginArgs): Promise<LoginResult> {
+  async login(
+    @Args() { email, password }: LoginArgs,
+  ): Promise<typeof LoginResult> {
     const user = await this.em.findOne(User, { email });
 
     if (!user) {
-      throw new InvalidCredentials();
+      return new InvalidCredentialsProblem();
     }
 
     const currentPassword = user.password;
 
     if (!currentPassword || !compare(password, currentPassword)) {
-      throw new InvalidCredentials();
+      return new InvalidCredentialsProblem();
     }
 
     if (!user.verifiedAt) {
-      throw new UnverifiedAccount();
+      return new UnverifiedAccountProblem();
     }
 
     const jwt = this.jwt.sign({}, { expiresIn: '1 day', subject: user.id });

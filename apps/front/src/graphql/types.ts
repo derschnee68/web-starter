@@ -14,6 +14,27 @@ export type Scalars = {
   DateTime: any;
 };
 
+/** This email already exists. */
+export type DuplicateEmailProblem = {
+  __typename?: 'DuplicateEmailProblem';
+  /** static: This email already exists. */
+  message: Scalars['String'];
+};
+
+/** The email and password combination is invalid. */
+export type InvalidCredentialsProblem = {
+  __typename?: 'InvalidCredentialsProblem';
+  /** static: The email and password combination is invalid. */
+  message: Scalars['String'];
+};
+
+/** This token is invalid. */
+export type InvalidTokenProblem = {
+  __typename?: 'InvalidTokenProblem';
+  /** static: This token is invalid. */
+  message: Scalars['String'];
+};
+
 /** JWT registered claims as described in the [RFC7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1) */
 export type JwtPayload = {
   __typename?: 'JwtPayload';
@@ -33,8 +54,10 @@ export type JwtPayload = {
   sub: Scalars['String'];
 };
 
-export type LoginResult = {
-  __typename?: 'LoginResult';
+export type LoginResult = InvalidCredentialsProblem | LoginSuccess | UnverifiedAccountProblem;
+
+export type LoginSuccess = {
+  __typename?: 'LoginSuccess';
   /** The JWT claims. They can also be obtained from the JWT payload. */
   payload: JwtPayload;
   /** The generated login JWT */
@@ -49,12 +72,12 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   /** Login in to the application with email/password credentials. */
   login: LoginResult;
-  /** Create new user account by providing email/password credentials. */
-  register: Scalars['Boolean'];
   /** Updates the password of a user */
-  resetPassword: Scalars['Boolean'];
+  resetPassword: ResetPasswordResult;
   /** Create new user account by providing email/password credentials. */
   sendActivationMail: Scalars['Boolean'];
+  /** Create new user account by providing email/password credentials. */
+  signUp: SignUpResult;
 };
 
 export type MutationActivateAccountArgs = {
@@ -70,11 +93,6 @@ export type MutationLoginArgs = {
   password: Scalars['String'];
 };
 
-export type MutationRegisterArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
 export type MutationResetPasswordArgs = {
   password: Scalars['String'];
   token: Scalars['String'];
@@ -84,10 +102,33 @@ export type MutationSendActivationMailArgs = {
   email: Scalars['String'];
 };
 
+export type MutationSignUpArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   /** Return user entity related to the logged in user */
   me: User;
+};
+
+export type ResetPasswordResult = InvalidTokenProblem | Success;
+
+export type SignUpResult = DuplicateEmailProblem | Success;
+
+/** The query or mutation is a success. */
+export type Success = {
+  __typename?: 'Success';
+  /** Returns true. */
+  success: Scalars['Boolean'];
+};
+
+/** This email is not verified. */
+export type UnverifiedAccountProblem = {
+  __typename?: 'UnverifiedAccountProblem';
+  /** static: This email is not verified. */
+  message: Scalars['String'];
 };
 
 /** A user account */

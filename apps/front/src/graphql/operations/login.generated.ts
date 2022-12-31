@@ -10,15 +10,20 @@ export type LoginMutationVariables = Types.Exact<{
 
 export type LoginMutation = {
   __typename?: 'Mutation';
-  login: { __typename?: 'LoginResult'; token: string; payload: { __typename?: 'JwtPayload'; exp: number } };
+  login:
+    | { __typename?: 'InvalidCredentialsProblem' }
+    | { __typename?: 'LoginSuccess'; token: string; payload: { __typename?: 'JwtPayload'; exp: number } }
+    | { __typename?: 'UnverifiedAccountProblem' };
 };
 
 export const LoginDocument = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      token
-      payload {
-        exp
+      ... on LoginSuccess {
+        token
+        payload {
+          exp
+        }
       }
     }
   }

@@ -6,7 +6,7 @@ import GraphQLConfig from './graphql/GraphQLConfig';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import config from './database/mikro-orm.config';
 import ForgotPassword from './graphql/operations/ForgotPassword';
-import Register from './graphql/operations/Register';
+import SignUp from './graphql/operations/SignUp';
 import Login from './graphql/operations/Login';
 import ResetPassword from './graphql/operations/ResetPassword';
 import AuthModule from './auth/AuthModule';
@@ -34,7 +34,7 @@ import ActivateAccount from './graphql/operations/ActivateAccount';
   providers: [
     Me,
     Login,
-    Register,
+    SignUp,
     ForgotPassword,
     ResetPassword,
     SendActivationMail,
