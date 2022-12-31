@@ -8,11 +8,18 @@ export type ResetPasswordMutationVariables = Types.Exact<{
   password: Types.Scalars['String'];
 }>;
 
-export type ResetPasswordMutation = { __typename?: 'Mutation'; resetPassword: boolean };
+export type ResetPasswordMutation = {
+  __typename?: 'Mutation';
+  resetPassword: { __typename?: 'InvalidTokenProblem' } | { __typename?: 'Success'; success: boolean };
+};
 
 export const ResetPasswordDocument = gql`
   mutation ResetPassword($token: String!, $password: String!) {
-    resetPassword(password: $password, token: $token)
+    resetPassword(password: $password, token: $token) {
+      ... on Success {
+        success
+      }
+    }
   }
 `;
 export type ResetPasswordMutationFn = Apollo.MutationFunction<ResetPasswordMutation, ResetPasswordMutationVariables>;

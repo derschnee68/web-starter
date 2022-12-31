@@ -27,7 +27,10 @@ export default class ForgotPassword {
     description:
       'Request the application to send an email with link to reset the user password.',
   })
-  async forgotPassword(@Args('email') email: string): Promise<boolean> {
+  async forgotPassword(
+    @Args('email', { description: 'The email whose password is to be reset' })
+    email: string,
+  ): Promise<boolean> {
     const user = await this.users.findOne({ email });
 
     if (!user) {

@@ -22,27 +22,28 @@ export default function useApolloClient(): ApolloClient<NormalizedCacheObject> {
     });
   }, [jwt]);
 
-  const errorLink = onError(({ graphQLErrors }) => {
-    if (Array.isArray(graphQLErrors)) {
-      for (const error of graphQLErrors) {
-        if (error.extensions?.code === 'UNAUTHENTICATED') {
-          clear();
-          void router.replace({
-            pathname: '/auth/login',
-            query: {
-              next: router.pathname,
-            },
-          });
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      if (Array.isArray(graphQLErrors)) {
+        for (const error of graphQLErrors) {
+          if (error.extensions?.code === 'UNAUTHENTICATED') {
+            clear();
+            void router.replace({
+              pathname: '/auth/login',
+              query: {
+                next: router.pathname,
+              },
+            });
+          }
         }
       }
-
-      const error = graphQLErrors[0];
-
-      if (['ARCHIPEL_USER_ERROR', 'UNVERIFIED_ACCOUNT'].includes(error.extensions?.code)) {
-        toast(error.message, { type: 'info' });
-      } else if (error.extensions?.code === 'ARCHIPEL_ERROR') {
-        toast('An error has occured on our side, our team will make it work in the best delays.', { type: 'error' });
+      if (graphQLErrors[0].extensions?.code !== 'UNAUTHENTICATED') {
+        toast.error('An unexpected error has occured on our side. Please try again later');
       }
+    }
+
+    if (networkError !== undefined) {
+      toast.warn('It seems that you are not connected to the internet.');
     }
   });
 

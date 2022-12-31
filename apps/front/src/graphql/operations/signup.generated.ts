@@ -8,11 +8,18 @@ export type SignupMutationVariables = Types.Exact<{
   password: Types.Scalars['String'];
 }>;
 
-export type SignupMutation = { __typename?: 'Mutation'; register: boolean };
+export type SignupMutation = {
+  __typename?: 'Mutation';
+  signUp: { __typename?: 'DuplicateEmailProblem' } | { __typename?: 'Success'; success: boolean };
+};
 
 export const SignupDocument = gql`
   mutation Signup($email: String!, $password: String!) {
-    register(email: $email, password: $password)
+    signUp(email: $email, password: $password) {
+      ... on Success {
+        success
+      }
+    }
   }
 `;
 export type SignupMutationFn = Apollo.MutationFunction<SignupMutation, SignupMutationVariables>;

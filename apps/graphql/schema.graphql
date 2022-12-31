@@ -29,7 +29,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 """
-JWT registered claims as described in the [RFC7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1)
+JWT registered claims as described in the [RFC7519](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1).
 """
 type JwtPayload {
   """The JWT issuer"""
@@ -54,16 +54,8 @@ type JwtPayload {
   jti: String!
 }
 
-type LoginResult {
-  """The generated login JWT"""
-  token: String!
-
-  """The JWT claims. They can also be obtained from the JWT payload."""
-  payload: JwtPayload!
-}
-
 type Query {
-  """Return user entity related to the logged in user"""
+  """Return a user entity related to the logged in user."""
   me: User!
 }
 
@@ -77,28 +69,31 @@ type Mutation {
     password: String!
   ): LoginResult!
 
-  """Create new user account by providing email/password credentials."""
-  register(
+  """Create a new user account by providing email/password credentials."""
+  signUp(
     """The email to use for the account creation"""
     email: String!
 
     """The password to use for the account creation"""
     password: String!
-  ): Boolean!
+  ): SignUpResult!
 
   """
   Request the application to send an email with link to reset the user password.
   """
-  forgotPassword(email: String!): Boolean!
+  forgotPassword(
+    """The email whose password is to be reset"""
+    email: String!
+  ): Boolean!
 
-  """Updates the password of a user"""
+  """Updates the password of a user."""
   resetPassword(
     """The JWT token associated to the reset password request"""
     token: String!
 
     """The new password to use"""
     password: String!
-  ): Boolean!
+  ): ResetPasswordResult!
 
   """Create new user account by providing email/password credentials."""
   sendActivationMail(
@@ -107,7 +102,61 @@ type Mutation {
   ): Boolean!
 
   """
-  Activate new user account after clicking on the link in the activation email
+  Activate new user account after clicking on the link in the activation email.
   """
-  activateAccount(token: String!): Boolean!
+  activateAccount(
+    """The confirmation token received by email"""
+    token: String!
+  ): ActivateAccountResult!
 }
+
+"""The result of the Login mutation."""
+union LoginResult = LoginSuccess | InvalidCredentialsProblem | UnverifiedAccountProblem
+
+"""The login mutation is a success."""
+type LoginSuccess {
+  """The generated login JWT"""
+  token: String!
+
+  """The JWT claims. They can also be obtained from the JWT payload."""
+  payload: JwtPayload!
+}
+
+"""The email and password combination is invalid."""
+type InvalidCredentialsProblem {
+  """static: The email and password combination is invalid."""
+  message: String!
+}
+
+"""This email is not verified."""
+type UnverifiedAccountProblem {
+  """static: This email is not verified."""
+  message: String!
+}
+
+"""The result of the SignUp mutation."""
+union SignUpResult = Success | DuplicateEmailProblem
+
+"""The query or mutation is a success."""
+type Success {
+  """Returns true."""
+  success: Boolean!
+}
+
+"""This email already exists."""
+type DuplicateEmailProblem {
+  """static: This email already exists."""
+  message: String!
+}
+
+"""The result of the ResetPassword mutation."""
+union ResetPasswordResult = Success | InvalidTokenProblem
+
+"""This token is invalid."""
+type InvalidTokenProblem {
+  """static: This token is invalid."""
+  message: String!
+}
+
+"""The result of the ActivateAccount mutation."""
+union ActivateAccountResult = Success | InvalidTokenProblem

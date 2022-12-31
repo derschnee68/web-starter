@@ -10,7 +10,7 @@ export default class Me {
   constructor(private readonly em: EntityManager) {}
 
   @Query(() => User, {
-    description: 'Return user entity related to the logged in user',
+    description: 'Return a user entity related to the logged in user.',
   })
   me(@UserId() userId: string): Promise<User> {
     return this.em.findOneOrFail(User, { id: userId });

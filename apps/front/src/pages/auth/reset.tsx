@@ -10,10 +10,10 @@ import TextField from '../../lib/forms/TextField';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Box from '@mui/material/Box';
 import { useResetPasswordMutation } from '../../graphql/operations/resetPassword.generated';
+import { passwordSchema } from '../../lib/auth/passwordSchema';
 
 const ResetPasswordSchema = z.object({
-  password: z.string().nonempty(),
-  passwordConfirmation: z.string().nonempty(),
+  password: passwordSchema,
 });
 
 type NewPasswordData = z.infer<typeof ResetPasswordSchema>;
@@ -22,15 +22,9 @@ const ResetPasswordPage: NextPage = () => {
   const router = useRouter();
   const { token } = router.query;
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    formState: { dirtyFields },
-  } = useForm<NewPasswordData>({
+  const { control, handleSubmit } = useForm<NewPasswordData>({
     resolver: zodResolver(ResetPasswordSchema),
   });
-  const areEqual = dirtyFields.passwordConfirmation && watch('passwordConfirmation') === watch('password');
 
   const [resetPassword, { loading }] = useResetPasswordMutation({
     onCompleted: () => void router.push('/auth/login', undefined, { shallow: true }),
@@ -48,15 +42,9 @@ const ResetPasswordPage: NextPage = () => {
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="reset--form" sx={{ width: '100%' }}>
         <TextField control={control} label="Password" name="password" type="password" />
-        <TextField
-          control={control}
-          helperText={watch('passwordConfirmation') === watch('password') ? '' : 'Passwords are different.'}
-          label="Password confirmation"
-          name="passwordConfirmation"
-          type="password"
-        />
+        <TextField control={control} label="Password confirmation" name="passwordConfirmation" type="password" />
 
-        <LoadingButton disabled={!areEqual} fullWidth={true} loading={loading} sx={{ mt: 2, mb: 1 }} type="submit">
+        <LoadingButton fullWidth={true} loading={loading} sx={{ mt: 3, mb: 2 }} type="submit">
           Reset your password
         </LoadingButton>
       </Box>
