@@ -12,12 +12,12 @@ import useJwt from '../../lib/auth/useJwt';
 import TextField from '../../lib/forms/TextField';
 import { useSendActivationMailMutation } from '../../graphql/operations/SendActivationMail.generated';
 import { AlertTitle } from '@mui/lab';
-import { IconButton, InputAdornment, Link, Tooltip } from '@mui/material';
+import { Link } from '@mui/material';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { passwordSchema } from '../../lib/auth/passwordSchema';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import PasswordTextField from '../../lib/forms/PasswordTextField';
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -34,7 +34,6 @@ const LoginPage: NextPage = () => {
   const { control, handleSubmit, getValues } = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
   });
-  const [showPassword, setShowPassword] = useState(false);
 
   const [login, { loading }] = useLoginMutation({
     onCompleted: (data) => {
@@ -66,7 +65,7 @@ const LoginPage: NextPage = () => {
   };
 
   return (
-    <AuthLayout title="Welcome back!">
+    <AuthLayout title="Sign in to your account">
       {isFromSignUp && (
         <Alert severity="info">
           <AlertTitle>Please confirm your account to login</AlertTitle>A confirmation email has been sent to you. If you
@@ -89,30 +88,10 @@ const LoginPage: NextPage = () => {
       )}
       <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="login--form" sx={{ width: '100%' }}>
         <TextField control={control} name="email" type="email" label="Email address" />
-        <TextField
-          control={control}
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          label="Password"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Tooltip title={showPassword ? 'Hide password' : 'Show password'}>
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((show) => !show)}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </Tooltip>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <PasswordTextField control={control} />
 
         <LoadingButton type="submit" fullWidth={true} sx={{ mt: 3, mb: 2 }} loading={loading}>
-          Login
+          Continue
         </LoadingButton>
 
         <Grid container>

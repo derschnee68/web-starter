@@ -6,11 +6,11 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
-import TextField from '../../lib/forms/TextField';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Box from '@mui/material/Box';
 import { useResetPasswordMutation } from '../../graphql/operations/resetPassword.generated';
 import { passwordSchema } from '../../lib/auth/passwordSchema';
+import PasswordTextField from '../../lib/forms/PasswordTextField';
 
 const ResetPasswordSchema = z.object({
   password: passwordSchema,
@@ -41,9 +41,7 @@ const ResetPasswordPage: NextPage = () => {
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="reset--form" sx={{ width: '100%' }}>
-        <TextField control={control} label="Password" name="password" type="password" />
-        <TextField control={control} label="Password confirmation" name="passwordConfirmation" type="password" />
-
+        <PasswordTextField control={control} />
         <LoadingButton fullWidth={true} loading={loading} sx={{ mt: 3, mb: 2 }} type="submit">
           Reset your password
         </LoadingButton>
