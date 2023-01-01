@@ -24,5 +24,24 @@
     "node": ">=14.0.0"
   },
   "dependencies": {},
-  "packageManager": "pnpm@7.2.1"
+  "packageManager": "pnpm@7.2.1",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.0.0"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "graphql": "16.5"
+      },
+      "ignoreMissing": [
+        "@babel/*",
+        "@babel/preset-env",
+        "@mui/system",
+        "graphql-tag",
+        "@algolia/client-search",
+        "ts-node",
+        "babel-loader"
+      ]
+    }
+  }
 }

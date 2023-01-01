@@ -33,10 +33,11 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.1",
     "react-toastify": "^9.1.1",
+    "webpack": "^5.75.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.20.7",
     "@cypress/code-coverage": "^3.10.0",
     "@faker-js/faker": "^7.2.0",
     "@graphql-codegen/cli": "^2.16.1",
@@ -60,20 +61,5 @@
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3",
     "unimported": "^1.24.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "^18.0.0"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "graphql": "16.5"
-      },
-      "ignoreMissing": [
-        "@babel/core",
-        "@mui/system",
-        "graphql-tag"
-      ]
-    }
   }
 }
