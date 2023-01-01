@@ -13,7 +13,7 @@ import { set } from 'lodash';
 
 @Injectable()
 export default class AuthGuard
-  extends NestAuthGuard(['jwt', 'token'])
+  extends NestAuthGuard(['jwt'])
   implements IAuthGuard
 {
   constructor(private reflector: Reflector) {
