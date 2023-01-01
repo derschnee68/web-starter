@@ -16,12 +16,11 @@ import { Link } from '@mui/material';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { passwordSchema } from '../../lib/auth/passwordSchema';
 import PasswordTextField from '../../lib/forms/PasswordTextField';
 
 const LoginSchema = z.object({
   email: z.string().email(),
-  password: passwordSchema,
+  password: z.string(),
 });
 
 type LoginData = z.infer<typeof LoginSchema>;
@@ -102,7 +101,7 @@ const LoginPage: NextPage = () => {
           </Grid>
           <Grid item>
             <Link href="/auth/signup" variant="body2">
-              Don't have an account? Sign up
+              Don&apos;t have an account? Sign up
             </Link>
           </Grid>
         </Grid>

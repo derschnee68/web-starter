@@ -33,6 +33,11 @@ class LoginSuccess {
       'The JWT claims. They can also be obtained from the JWT payload.',
   })
   payload!: JwtPayload;
+
+  constructor(_token: string, _payload: JwtPayload) {
+    this.token = _token;
+    this.payload = _payload;
+  }
 }
 
 const invalidCredentialsMessage =
@@ -95,9 +100,9 @@ export default class Login {
 
     const jwt = this.jwt.sign({}, { expiresIn: '1 day', subject: user.id });
 
-    return {
-      token: jwt,
-      payload: this.jwt.decode(jwt, { json: true }) as JwtPayload,
-    };
+    return new LoginSuccess(
+      jwt,
+      this.jwt.decode(jwt, { json: true }) as JwtPayload,
+    );
   }
 }

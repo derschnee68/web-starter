@@ -8,7 +8,7 @@ import JwtStrategy from './JwtStrategy';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: ['jwt', 'token'] }),
+    PassportModule.register({ defaultStrategy: ['jwt'] }),
     JwtModule.registerAsync({ useClass: JwtConfig }),
   ],
   providers: [JwtStrategy, { provide: APP_GUARD, useClass: AuthGuard }],

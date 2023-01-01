@@ -24,7 +24,7 @@ type SignupData = z.infer<typeof SignupSchema>;
 
 const SignupPage: NextPage = () => {
   const router = useRouter();
-  const { control, handleSubmit, setError, formState } = useForm<SignupData>({
+  const { control, handleSubmit, setError } = useForm<SignupData>({
     resolver: zodResolver(SignupSchema),
   });
 
@@ -41,7 +41,7 @@ const SignupPage: NextPage = () => {
   });
 
   const onSubmit: SubmitHandler<SignupData> = ({ email, password }) => {
-    signup({
+    void signup({
       variables: { email, password },
     });
   };

@@ -43,7 +43,7 @@ const ResetPasswordPage: NextPage = () => {
       <Box component="form" onSubmit={handleSubmit(onSubmit)} data-test="reset--form" sx={{ width: '100%' }}>
         <PasswordTextField control={control} />
         <LoadingButton fullWidth={true} loading={loading} sx={{ mt: 3, mb: 2 }} type="submit">
-          Reset your password
+          Save new password
         </LoadingButton>
       </Box>
     </AuthLayout>

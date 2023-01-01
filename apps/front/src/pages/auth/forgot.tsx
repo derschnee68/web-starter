@@ -38,20 +38,25 @@ const ForgotPasswordPage: NextPage = () => {
 
   return (
     <AuthLayout title="Reset your password">
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }} data-test="reset--form">
-        <Typography variant="body1" sx={{ mt: 1, mb: 2 }}>
-          Enter the email address associated with your account and we will send you a link to reset your password.
+      {isReset ? (
+        <Typography align="center" sx={{ mb: 2 }}>
+          An email with a reset link has been sent to this address.
         </Typography>
-        <TextField control={control} label="Email" name="email" type="email" />
-        <LoadingButton loading={loading} fullWidth={true} sx={{ mt: 3, mb: 2 }} type="submit">
-          Continue
-        </LoadingButton>
-      </Box>
+      ) : (
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ width: '100%' }} data-test="reset--form">
+          <Typography variant="body1" sx={{ mt: 1, mb: 2 }}>
+            Enter the email address associated with your account and we will send you a link to reset your password.
+          </Typography>
+          <TextField control={control} label="Email" name="email" type="email" />
+          <LoadingButton loading={loading} fullWidth={true} sx={{ mt: 3, mb: 2 }} type="submit">
+            Continue
+          </LoadingButton>
+        </Box>
+      )}
+
       <Link href="/auth/login" variant="body2">
         Return to sign in
       </Link>
-
-      {isReset && <Typography align="center">An email with a reset link has been sent to this address.</Typography>}
     </AuthLayout>
   );
 };
