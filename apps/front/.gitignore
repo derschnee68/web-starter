@@ -41,3 +41,6 @@ cypress/videos
 
 # Sentry
 .sentryclirc
+
+# Sentry
+.sentryclirc
