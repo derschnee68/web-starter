@@ -9,7 +9,7 @@ import User from './entities/User';
 loadEnv();
 const env = schema.pick({ MYSQL_URI: true }).parse(process.env);
 
-console.log('juju', env.MYSQL_URI);
+console.warn('juju', env.MYSQL_URI);
 const config: Options = {
   debug: true,
   type: 'mysql',
