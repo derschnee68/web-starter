@@ -1,0 +1,21 @@
+name: Setup environment
+description: Setup Node and install dependencies
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.0.1
+      with:
+        version: 7.3.0
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        cache: pnpm
+    - name: Install dependencies
+      run: |
+        pnpm install --frozen-lockfile
+        echo "$(pnpm bin)" >> $GITHUB_PATH
+      shell: bash
+      env:
+        SENTRYCLI_SKIP_DOWNLOAD: '1'
