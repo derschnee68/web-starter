@@ -20,7 +20,11 @@ describe('App e2e tests', () => {
 
   const registerGql = gql`
     mutation Signup($email: String!, $password: String!) {
-      register(email: $email, password: $password)
+      signUp(email: $email, password: $password) {
+        ... on Success {
+          success
+        }
+      }
     }
   `;
 

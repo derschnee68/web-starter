@@ -58,9 +58,9 @@ jobs:
       - name: Prepare the database (migrations + seed)
         working-directory: apps/graphql
         run: pnpm mikro-orm migration:fresh --seed
-      - name: Run Graphql e2e test
+      - name: Run graphql e2e test
         working-directory: apps/graphql
-        run: pnpm test:e2e
+        run: pnpm test:e2e --forceExit
       - name: Install Cypress
         working-directory: apps/front
         run: pnpm cypress install
