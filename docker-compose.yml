@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
       MYSQL_DATABASE: main
       MYSQL_USER: user
-      MYSQL_PASSWORD: Z32!decJfnpnY@c5DL8L
+      MYSQL_PASSWORD: Z32!decJfnpnYc5DL8L
     volumes:
       - mysql_data:/var/lib/mysql
   mailcatcher:
@@ -16,5 +16,11 @@ services:
     ports:
       - '1080:1080' # HTTP web UI
       - '1025:1025' # SMTP server
+  minio:
+    image: minio/minio
+    command: [ server, --console-address, ':9001', /data ]
+    ports:
+      - '29000:9000'
+      - '29001:9001'
 volumes:
   mysql_data:
