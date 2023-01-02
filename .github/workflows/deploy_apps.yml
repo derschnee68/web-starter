@@ -95,7 +95,7 @@ jobs:
       - name: Build the Docker image
         run: |
           turbo run docker --filter=./apps/${{ matrix.app }} -- \
-            --tag ${{ env.registry }}/${{ matrix.app }}:${{ needs.meta.outputs.tag }}
+            --tag env.registry/${{ matrix.app }}:${{ needs.meta.outputs.tag }}
         env:
           NEXT_PUBLIC_URI: https://${{ needs.meta.outputs.domain }}
           NEXT_PUBLIC_GRAPHQL_URI: https://${{ needs.meta.outputs.domain }}/graphql
