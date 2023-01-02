@@ -2,17 +2,14 @@ import { defineConfig } from 'cypress';
 import { cypressEsbuildPreprocessor } from 'cypress-esbuild-preprocessor';
 import { resolve } from 'path';
 import { config } from 'dotenv';
-import withCodeCoverage from '@cypress/code-coverage/task';
 
+const withCodeCoverage = require('@cypress/code-coverage/task');
 config({ path: resolve(__dirname, '.env.test') });
 
 export default defineConfig({
   projectId: 'e6u291',
   e2e: {
     baseUrl: 'http://localhost:3000',
-    env: {
-      archipel_token: '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',
-    },
     supportFile: false,
     viewportWidth: 1280,
     viewportHeight: 720,
