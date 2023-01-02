@@ -70,7 +70,6 @@ jobs:
           wait-on: http://localhost:3000
           wait-on-timeout: 120
           browser: chrome
-          tag: ${{ github.event_name }}
           working-directory: apps/front
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
