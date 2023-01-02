@@ -16,11 +16,11 @@ services:
     ports:
       - '1080:1080' # HTTP web UI
       - '1025:1025' # SMTP server
-    minio:
-      image: minio/minio
-      command: [ server, --console-address, ':9001', /data ]
-      ports:
-        - '29000:9000'
-        - '29001:9001'
+  minio:
+    image: minio/minio
+    command: [ server, --console-address, ':9001', /data ]
+    ports:
+      - '29000:9000'
+      - '29001:9001'
 volumes:
   mysql_data:
