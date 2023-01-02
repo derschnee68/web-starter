@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { IconButton, InputAdornment, Tooltip } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import TextField from './TextField';
-import type { Control } from 'react-hook-form';
+import type { ControlAny } from '../../types/react-hook-form';
 
 interface PasswordTextFieldProps {
-  control: Control<{ email: string; password: string }>;
+  control: ControlAny;
 }
 
 const PasswordTextField: FC<PasswordTextFieldProps> = ({ control }) => {

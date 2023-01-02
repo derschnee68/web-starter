@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
-import type { ComponentType, FC } from 'react';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import useJwt from './useJwt';
 import useUser from '../hooks/useUser';
 import { CircularProgress, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-export default function withAuth<P>(Component: ComponentType<P>): FC<P> {
+export default function withAuth<P>(Component: FC<P>): FC<P> {
   const WithAuth: FC<P> = (props) => {
     const router = useRouter();
     const { jwt } = useJwt();
@@ -26,7 +26,7 @@ export default function withAuth<P>(Component: ComponentType<P>): FC<P> {
       }
     }, [router, loadingUser, user, jwt]);
 
-    if (!hasMounted)
+    if (!hasMounted) {
       return (
         <Stack alignItems="center" justifyContent="center" width="100vw" height="100vh">
           <Stack alignItems="center">
@@ -37,7 +37,9 @@ export default function withAuth<P>(Component: ComponentType<P>): FC<P> {
           </Stack>
         </Stack>
       );
-    return <Component {...props} />;
+    }
+
+    return <Component {...(props as JSX.IntrinsicAttributes & P)} />;
   };
 
   WithAuth.displayName = Component.displayName = '_withAuth';
