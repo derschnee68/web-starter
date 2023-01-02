@@ -30,8 +30,8 @@ jobs:
           - '23306:3306'
         env:
           MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
-          MYSQL_DATABASE: isquare
-          MYSQL_USER: isquare
+          MYSQL_DATABASE: main
+          MYSQL_USER: user
           MYSQL_PASSWORD: Z32!decJfnpnYc5DL8L
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       mailcatcher:
