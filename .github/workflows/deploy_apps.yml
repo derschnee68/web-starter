@@ -90,7 +90,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup environment
+      - name: Setup envi  ronment
         uses: ./.github/actions/setup
       - name: Build the Docker image
         run: |
@@ -111,4 +111,4 @@ jobs:
           password: ${{ secrets.GOOGLE_CREDENTIALS }}
       - name: Push image to Google Cloud Artifact Registry
         if: github.event_name == 'push'
-        run: docker push '${{ env.registry }}/${{ matrix.app }}:${{ needs.meta.outputs.tag }}'
+        run: docker push 'env.registry/${{ matrix.app }}:${{ needs.meta.outputs.tag }}'
