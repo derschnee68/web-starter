@@ -74,8 +74,6 @@ jobs:
           tag: ${{ github.event_name }}
           working-directory: apps/front
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
       - name: Display the logs
         if: failure()
@@ -105,13 +103,4 @@ jobs:
           NEXT_PUBLIC_SENTRY_DSN: https://16a606fb666a4f92a0beea91edb38dff@o507606.ingest.sentry.io/6521915
           NEXT_PUBLIC_SENTRY_RELEASE: ${{ needs.meta.outputs.tag }}
           NEXT_PUBLIC_SENTRY_ENV: ${{ needs.meta.outputs.environment }}
-      - name: Login to Google Cloud Artifact Registry
-        if: github.event_name == 'push'
-        uses: docker/login-action@v2
-        with:
-          registry: europe-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.GOOGLE_CREDENTIALS }}
-      - name: Push image to Google Cloud Artifact Registry
-        if: github.event_name == 'push'
-        run: docker push '${{ env.registry }}/${{ matrix.app }}:${{ needs.meta.outputs.tag }}'
+
