@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
       MYSQL_DATABASE: main
       MYSQL_USER: user
-      MYSQL_PASSWORD: Z32!decJfnpnYc5DL8L
+      MYSQL_PASSWORD: Z32!decJfnpnY@c5DL8L
     volumes:
       - mysql_data:/var/lib/mysql
   mailcatcher:
