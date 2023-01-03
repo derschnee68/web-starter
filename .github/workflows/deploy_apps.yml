@@ -32,7 +32,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
           MYSQL_DATABASE: main
           MYSQL_USER: user
-          MYSQL_PASSWORD: Z32!decJfnpnYc5DL8L
+          MYSQL_PASSWORD: Z32!decJfnpnY@c5DL8L
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       mailcatcher:
         image: schickling/mailcatcher
