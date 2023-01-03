@@ -51,13 +51,7 @@ To develop all apps and packages, run the following command:
 pnpm dev
 ```
 
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-pnpm build
-```
+Then, you can navigate to https://localhost:3000 and login with email `user1@mywebsite.ai` and password `123456`.
 
 ## Maintainers - Core Team
 
