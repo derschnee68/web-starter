@@ -1,0 +1,20 @@
+name: Deploy documentation
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+  workflow_dispatch:
+env:
+  bucket: docs.isquare.ai
+jobs:
+  deploy:
+    name: Deploy the documentation to Google Cloud Storage
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup environment
+        uses: ./.github/actions/setup
+      - name: Build the Docusaurus documentation
+        run: turbo run build --filter=./apps/docs

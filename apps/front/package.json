@@ -58,7 +58,6 @@
     "eslint-config-next": "^13.1.1",
     "eslint-plugin-cypress": "^2.12.1",
     "graphql-request": "^5.1.0",
-    "tsconfig": "workspace:*",
     "typescript": "^4.5.3",
     "unimported": "^1.24.0"
   }
