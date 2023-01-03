@@ -1,48 +1,45 @@
 # Web starter
 
-This repo is a boilerplate for bootstrapping a front and backend using typescript, leveraging:
+This repo is a boilerplate for bootstrapping a NextJs front and NestJs backend
+using [Typescript](https://www.typescriptlang.org/).
 
-- an official pnpm starter turborepo
-- a mysql database setup via docker
-- a github action workflow
+## Summary
+
+- [What's inside ?](#whats-inside)
+- [How to install ?](#how-to-install-)
+- [Maintainers - Core team](#maintainers---core-team)
 
 ## What's inside?
 
-This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes the following packages/apps:
+### `./apps` folder
 
-### Apps and Packages
+The project is a monorepo managed by [pnpm](https://pnpm.io/) and [turbo](https://turbo.build/) and containing
+in `./apps` folder:
 
-- `graphql`: a [NestJs](https://nestjs.com) backend using graphql
-- `front`: a [Next.js](https://nextjs.org/) frontend
-- `docs`: the app documentation
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- a [NestJs](https://nestjs.com/) backend with
+    * [Graphql](https://docs.nestjs.com/graphql/quick-start)
+    * [MikroOrm](https://mikro-orm.io/) on top of a mysql database
+    * [JWT authentication](https://docs.nestjs.com/security/authentication)
+    * e2e testing with [Jest](https://jestjs.io/)
+    * [Error reporting](https://sentry.io)
+- a [NextJs](https://nextjs.org/) frontend with
+    * [MaterialUI](https://mui.com/material-ui/getting-started/overview/)
+    * Form validation via [react-hook-form](https://react-hook-form.com/) and [zod](https://github.com/colinhacks/zod)
+    * auth pages (signin, signup, forgot-password, reset-password pages)
+    * e2e testing via [Cypress](https://www.cypress.io/)
+    * unit testing with [Jest](https://jestjs.io/)
+- a [docusaurus](https://docusaurus.io/) documentation
+- a CLI that generates icons and JWT keypairs for the frontend
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+It also contains in `./.github` folder a github action pipeline to test and build on dev branch and pull requests.
 
 ### Documentation
 
 [More documentation](./docs/workspace.md) is available to describe the architecture and github workflow.
 
-### First install
+## How to install ?
 
-Install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) globally.
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-pnpm build
-```
+First install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) globally on your machine.
 
 ### Develop
 
@@ -50,6 +47,14 @@ To develop all apps and packages, run the following command:
 
 ```
 pnpm dev
+```
+
+### Build
+
+To build all apps and packages, run the following command:
+
+```
+pnpm build
 ```
 
 ## Maintainers - Core Team
