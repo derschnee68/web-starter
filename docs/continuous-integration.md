@@ -26,5 +26,4 @@ linting lead to a deployment rejection.
 
 ## See also
 
-- [Cloud architecture](cloud-architecture.md)
 - [Workspace](workspace.md)
