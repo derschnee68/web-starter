@@ -39,7 +39,9 @@ It also contains in `./.github` folder a github action pipeline to test and buil
 
 ## How to install ?
 
-First install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) globally on your machine.
+First install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation) globally on your machine, then run
+
+`pnpm install`
 
 ### Develop
 
