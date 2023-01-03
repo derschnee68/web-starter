@@ -15,7 +15,8 @@ export class DatabaseSeeder extends Seeder {
         em.create(User, {
           id: uid,
           email: `${uid}@mywebsite.ai`,
-          password: 'yo',
+          password:
+            '{SSHA}xVgLL9FQklEItPTG3iLL/hjX8S2JvcZcImeRk/DhELSmMyx/AmHRbw==', // 123456 hashed
           verifiedAt: new Date(),
         });
       } else {
