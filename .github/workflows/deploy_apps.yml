@@ -1,10 +1,7 @@
 name: Deploy apps
 on:
-  push:
-    branches: [ main, dev, julien/test ]
   pull_request:
     types: [ opened, synchronize, reopened ]
-  workflow_dispatch:
 jobs:
   meta:
     name: Prepare the release variables
@@ -90,7 +87,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup envi  ronment
+      - name: Setup environment
         uses: ./.github/actions/setup
       - name: Build the Docker image
         run: |
@@ -99,6 +96,4 @@ jobs:
         env:
           NEXT_PUBLIC_URI: https://${{ needs.meta.outputs.domain }}
           NEXT_PUBLIC_GRAPHQL_URI: https://${{ needs.meta.outputs.domain }}/graphql
-          NEXT_PUBLIC_SENTRY_DSN: https://16a606fb666a4f92a0beea91edb38dff@o507606.ingest.sentry.io/6521915
-          NEXT_PUBLIC_SENTRY_RELEASE: ${{ needs.meta.outputs.tag }}
           NEXT_PUBLIC_SENTRY_ENV: ${{ needs.meta.outputs.environment }}
