@@ -1,15 +1,50 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
-    },
     "lint": {
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "test/**/*.ts"
+      ],
       "outputs": []
     },
-    "dev": {
-      "cache": false
+    "test": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "test/**/*.ts"
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        "^build",
+        "lint"
+      ],
+      "outputs": [
+        "dist/**",
+        "build/**",
+        ".next/**",
+        "artifacts/**",
+        ".docusaurus"
+      ],
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "test/**/*.ts",
+        "docs/**/*.{ts,tsx,md,mdx}",
+        "package.json"
+      ]
+    },
+    "docker": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "Dockerfile"
+      ],
+      "outputs": []
     }
   }
 }

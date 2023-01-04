@@ -1,0 +1,3 @@
+{
+  "commit-msg": "./node_modules/.bin/standard-commithook"
+}
