@@ -1,0 +1,29 @@
+ignores:
+  # dev
+  - '@typescript-eslint/eslint-plugin'
+  - depcheck
+  - ts-node
+  - typescript
+  - unimported
+  - wait-on
+  - '../../.prettierrc.js'
+
+  # Testing
+  - '@types/jest'
+  - '@types/supertest'
+  - supertest
+
+  # Webpack
+  - raw-loader
+  - ts-loader
+  - webpack
+
+  # mjml
+  - mjml
+  - mjml-core
+  - '@types/mjml-core'
+  - mjml-head-font
+  - mjml-with-images-loader
+
+  # Types
+  - '@types/ssh2'

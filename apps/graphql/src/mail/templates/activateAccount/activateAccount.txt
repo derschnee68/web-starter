@@ -1,0 +1,7 @@
+Reset your password
+
+In order to be able login please click the link below to activate your account:
+
+<%= _app.url %>/auth/activate?token=<%= token %>
+
+You can also copy/paste the URL above in your browser.

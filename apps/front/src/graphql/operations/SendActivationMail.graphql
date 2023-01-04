@@ -1,0 +1,3 @@
+mutation SendActivationMail($email: String!){
+  sendActivationMail(email: $email)
+}

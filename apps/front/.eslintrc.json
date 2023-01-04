@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint-config-custom"
+  ],
+  "ignorePatterns": [
+    "cypress/graphql/sdk.ts",
+    "src/graphql/types.ts",
+    "src/graphql/**/*.generated.ts"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "cypress/**"
+      ],
+      "plugins": [
+        "cypress"
+      ],
+      "extends": [
+        "plugin:cypress/recommended"
+      ]
+    },
+    {
+      "files": [
+        "cypress/support/commands/**/*.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-namespace": "off"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+query ReadUser {
+    me{
+        id
+        email
+    }
+}

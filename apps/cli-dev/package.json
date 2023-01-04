@@ -1,0 +1,27 @@
+{
+  "name": "web-starter-cli-dev",
+  "description": "Internal cli",
+  "version": "0.0.1",
+  "bin": {
+    "i2-dev": "dist/i2-dev.js"
+  },
+  "scripts": {
+    "i2-dev": "ts-node src/i2-dev.ts",
+    "prepare": "pnpm run build",
+    "build": "tsc",
+    "lint": "eslint '**/*.{js,ts}'"
+  },
+  "dependencies": {
+    "commander": "^9.3.0",
+    "favicons": "7.0.0-beta.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.17",
+    "eslint": "^8.17.0",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.7.3"
+  },
+  "prettier": "../../.prettierrc.js"
+}
