@@ -1,10 +1,10 @@
 {
-  "name": "web-starter-4",
+  "name": "web-starter",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "libs/*"
   ],
   "scripts": {
     "prepare": "simple-git-hooks",

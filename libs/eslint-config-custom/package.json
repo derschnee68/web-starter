@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/derschnee68/web-starter-4.git",
+    "url": "https://github.com/derschnee68/web-starter.git",
     "directory": "libs/eslint-config-custom"
   },
   "main": ".eslintrc.js",
