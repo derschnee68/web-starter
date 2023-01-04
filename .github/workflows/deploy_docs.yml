@@ -4,12 +4,9 @@ on:
     branches: [ main, dev ]
   pull_request:
     types: [ opened, synchronize, reopened ]
-  workflow_dispatch:
-env:
-  bucket: docs.isquare.ai
 jobs:
   deploy:
-    name: Deploy the documentation to Google Cloud Storage
+    name: Build the documentation
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
