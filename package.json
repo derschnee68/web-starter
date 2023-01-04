@@ -1,25 +1,47 @@
 {
-  "name": "web-starter-4",
+  "name": "web-starter",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "libs/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
+    "prepare": "simple-git-hooks",
+    "dev": "pnpm compose && pnpm run --parallel --recursive --filter=!web-starter-docs dev",
+    "lint": "pnpm run -r lint",
+    "compose": "docker compose up -d --remove-orphans",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
+    "simple-git-hooks": "^2.8.0",
+    "standard-commit": "^4.2.5",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
   "dependencies": {},
-  "packageManager": "pnpm@7.2.1"
+  "packageManager": "pnpm@7.2.1",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.0.0"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "graphql": "16.5"
+      },
+      "ignoreMissing": [
+        "@babel/*",
+        "@babel/preset-env",
+        "@mui/system",
+        "graphql-tag",
+        "@algolia/client-search",
+        "ts-node",
+        "babel-loader"
+      ]
+    }
+  }
 }

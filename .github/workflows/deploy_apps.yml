@@ -1,0 +1,104 @@
+name: Deploy apps
+on:
+  push:
+    branches: [ main, dev, julien/test ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+  workflow_dispatch:
+jobs:
+  meta:
+    name: Prepare the release variables
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execute the script
+        id: result
+        run: .github/scripts/setup.js
+    outputs:
+      tag: ${{ steps.result.outputs.tag }}
+      environment: ${{ steps.result.outputs.environment }}
+      domain: ${{ steps.result.outputs.domain }}
+      secrets: ${{ steps.result.outputs.secrets }}
+  test:
+    name: Test the apps with Cypress
+    runs-on: ubuntu-20.04
+    services:
+      database:
+        image: mysql:8-oracle
+        ports:
+          - '23306:3306'
+        env:
+          MYSQL_ROOT_PASSWORD: DWp6D2MD9BBEVgxbqcwZ
+          MYSQL_DATABASE: main
+          MYSQL_USER: user
+          MYSQL_PASSWORD: Z32!decJfnpnY@c5DL8L
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      mailcatcher:
+        image: schickling/mailcatcher
+        ports:
+          - '1080:1080' # HTTP web UI
+          - '1025:1025' # SMTP server
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup environment
+        uses: ./.github/actions/setup
+      - name: Build the graphql image
+        run: turbo run docker --filter=./apps/graphql -- --tag=graphql:latest
+      - name: Start the required images
+        run: docker compose up minio -d
+      - name: Start the GraphQL API
+        run: |
+          docker stop graphql || true
+          docker rm graphql || true
+          docker run --rm --env-file=apps/graphql/.env.test --name=graphql --network=host -d graphql:latest
+      - name: Prepare the database (migrations + seed)
+        working-directory: apps/graphql
+        run: pnpm mikro-orm migration:fresh --seed
+      - name: Install Cypress
+        working-directory: apps/front
+        run: pnpm cypress install
+      - name: Run Cypress end-to-end tests
+        uses: cypress-io/github-action@v4
+        with:
+          install: false
+          build: pnpm next build
+          start: pnpm next start
+          wait-on: http://localhost:3000
+          wait-on-timeout: 120
+          browser: chrome
+          working-directory: apps/front
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+      - name: Display the logs
+        if: failure()
+        run: |
+          docker compose logs database
+          docker logs graphql
+  build:
+    name: Build Docker image
+    runs-on: ubuntu-20.04
+    needs: [ meta ]
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [ front, graphql ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup envi  ronment
+        uses: ./.github/actions/setup
+      - name: Build the Docker image
+        run: |
+          turbo run docker --filter=./apps/${{ matrix.app }} -- \
+            --tag env.registry/${{ matrix.app }}:${{ needs.meta.outputs.tag }}
+        env:
+          NEXT_PUBLIC_URI: https://${{ needs.meta.outputs.domain }}
+          NEXT_PUBLIC_GRAPHQL_URI: https://${{ needs.meta.outputs.domain }}/graphql
+          NEXT_PUBLIC_SENTRY_DSN: https://16a606fb666a4f92a0beea91edb38dff@o507606.ingest.sentry.io/6521915
+          NEXT_PUBLIC_SENTRY_RELEASE: ${{ needs.meta.outputs.tag }}
+          NEXT_PUBLIC_SENTRY_ENV: ${{ needs.meta.outputs.environment }}

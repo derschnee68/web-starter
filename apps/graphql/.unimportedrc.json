@@ -1,0 +1,59 @@
+{
+  "entry": [
+    "./src/main.ts",
+    "./src/database/mikro-orm.config.ts",
+    "./src/database/migrations/*.ts",
+    "./src/database/seeders/*.ts"
+  ],
+  "extensions": [
+    ".ts",
+    ".js"
+  ],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "dist/**"
+  ],
+  "ignoreUnresolved": [
+    "@faker-js/faker",
+    "accepts",
+    "array-flatten",
+    "body-parser",
+    "content-disposition",
+    "content-type",
+    "cookie",
+    "cookie-signature",
+    "debug",
+    "depd",
+    "encodeurl",
+    "escape-html",
+    "etag",
+    "finalhandler",
+    "fresh",
+    "fs-extra",
+    "globby",
+    "http-errors",
+    "merge-descriptors",
+    "methods",
+    "on-finished",
+    "parseurl",
+    "path-to-regexp",
+    "proxy-addr",
+    "qs",
+    "range-parser",
+    "safe-buffer",
+    "send",
+    "serve-static",
+    "setprototypeof",
+    "statuses",
+    "tslib",
+    "type-is",
+    "utils-merge",
+    "vary"
+  ],
+  "ignoreUnused": [
+    "@nestjs/cli",
+    "rimraf",
+    "webpack"
+  ],
+  "ignoreUnimported": []
+}
