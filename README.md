@@ -53,6 +53,25 @@ pnpm dev
 
 Then, you can navigate to https://localhost:3000 and login with email `user1@mywebsite.ai` and password `123456`.
 
+s### How to create a native account with mysql
+```shell
+
+Cd apps/graphql Pnpm  gen:migration
+Docker exec -it (mysql:8-oracle) bash
+```
+```shell
+Mysql -uroot -prootpassword
+```
+```shell
+```mysql
+SHOW DATABASES use main
+```
+Créer un compte avec email=myemail@gmail.com
+Et faire
+
+```mysql
+UPDATE user SET verified_at=NOW() WHERE email=“myemail@gmail.com";
+``````
 ## Maintainers - Core Team
 
 <table>
